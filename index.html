@@ -105,6 +105,16 @@ tr.hilite td{background:var(--primary-light);font-weight:600}
 .toast.show{opacity:1;transform:translateY(0)}
 /* FLUJO */
 .flujo-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(6,95,70,.1);color:var(--green);font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:6px}
+.mode-banner{border-radius:10px;padding:10px 14px;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;border:1px solid;transition:all .3s}
+.mode-banner.segmentado{background:rgba(250,52,94,.06);border-color:rgba(250,52,94,.2)}
+.mode-banner.dicotomico{background:rgba(245,158,11,.07);border-color:rgba(245,158,11,.3)}
+.mode-banner.umbral{background:rgba(6,95,70,.07);border-color:rgba(6,95,70,.2)}
+.mb-left{display:flex;align-items:center;gap:10px}
+.mb-icon{font-size:20px}
+.mb-title{font-size:13px;font-weight:800}
+.mb-desc{font-size:11px;color:var(--muted);margin-top:1px}
+.mb-segs{display:flex;gap:6px;flex-wrap:wrap}
+.meta-disabled-mode{font-size:11px;color:var(--muted);padding:6px 0;display:flex;align-items:center;gap:6px;font-style:italic}
 /* SUMMARY PAGE */
 .sum-section{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:1rem}
 .sum-head{background:var(--light);padding:.75rem 1rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border)}
@@ -190,7 +200,10 @@ tr.hilite td{background:var(--primary-light);font-weight:600}
 
   <!-- METAS -->
   <div class="card">
-    <div class="ctitle">Metas activas — <span id="areaLabelCalc" style="color:var(--primary)"></span></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:.875rem">
+      <div class="ctitle" style="margin:0">Metas activas — <span id="areaLabelCalc" style="color:var(--primary)"></span></div>
+    </div>
+    <div id="modeBanner"></div>
     <div id="metasContainer"></div>
   </div>
 
@@ -248,24 +261,62 @@ tr.hilite td{background:var(--primary-light);font-weight:600}
   <div class="card">
     <div class="ctitle">Información del programa</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:.75rem">
-      <div><label>Nombre del programa</label><input type="text" id="cfgNameC" value="Programa de Incentivos 2025" placeholder="Nombre del programa" oninput="updateConfigLabel()"></div>
-      <div><label>Empresa / Cliente</label><input type="text" id="cfgOrgC" value="" placeholder="Nombre de la empresa" oninput="updateConfigLabel()"></div>
+      <div><label>Nombre del programa</label><input type="text" id="cfgNameC" value="Programa de Incentivos 2025" placeholder="Nombre del programa" oninput="markCfgDirty()"></div>
+      <div><label>Empresa / Cliente</label><input type="text" id="cfgOrgC" value="" placeholder="Nombre de la empresa" oninput="markCfgDirty()"></div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-      <div><label>Moneda</label><select id="cfgMonedaC" onchange="updateConfigLabel()"><optgroup label="Sudamérica"><option value="ARS">ARS — Peso argentino</option><option value="BOB">BOB — Boliviano</option><option value="BRL">BRL — Real brasileño</option><option value="CLP">CLP — Peso chileno</option><option value="COP">COP — Peso colombiano</option><option value="PEN">PEN — Sol peruano</option><option value="PYG">PYG — Guaraní</option><option value="UYU">UYU — Peso uruguayo</option><option value="VES">VES — Bolívar soberano</option></optgroup><optgroup label="Centroamérica y México"><option value="MXN">MXN — Peso mexicano</option><option value="GTQ">GTQ — Quetzal</option><option value="HNL">HNL — Lempira</option><option value="NIO">NIO — Córdoba</option><option value="CRC">CRC — Colón costarricense</option><option value="PAB">PAB — Balboa</option><option value="DOP">DOP — Peso dominicano</option><option value="SVC">SVC — Colón salvadoreño</option><option value="BZD">BZD — Dólar de Belice</option></optgroup><optgroup label="Caribe"><option value="CUP">CUP — Peso cubano</option><option value="HTG">HTG — Gourde haitiano</option><option value="JMD">JMD — Dólar jamaicano</option><option value="TTD">TTD — Dólar trinitense</option></optgroup><optgroup label="Referencia internacional"><option value="USD">USD — Dólar estadounidense</option><option value="EUR">EUR — Euro</option></optgroup></select></div>
-      <div><label>País / Región</label><input type="text" id="cfgPaisC" value="" placeholder="Ej: Chile, Colombia, LATAM..." oninput="updateConfigLabel()"></div>
+      <div><label>Moneda</label><select id="cfgMonedaC" onchange="markCfgDirty()"><optgroup label="Sudamérica"><option value="ARS">ARS — Peso argentino</option><option value="BOB">BOB — Boliviano</option><option value="BRL">BRL — Real brasileño</option><option value="CLP" selected>CLP — Peso chileno</option><option value="COP">COP — Peso colombiano</option><option value="PEN">PEN — Sol peruano</option><option value="PYG">PYG — Guaraní</option><option value="UYU">UYU — Peso uruguayo</option><option value="VES">VES — Bolívar soberano</option></optgroup><optgroup label="Centroamérica y México"><option value="MXN">MXN — Peso mexicano</option><option value="GTQ">GTQ — Quetzal</option><option value="HNL">HNL — Lempira</option><option value="NIO">NIO — Córdoba</option><option value="CRC">CRC — Colón costarricense</option><option value="PAB">PAB — Balboa</option><option value="DOP">DOP — Peso dominicano</option><option value="SVC">SVC — Colón salvadoreño</option><option value="BZD">BZD — Dólar de Belice</option></optgroup><optgroup label="Caribe"><option value="CUP">CUP — Peso cubano</option><option value="HTG">HTG — Gourde haitiano</option><option value="JMD">JMD — Dólar jamaicano</option><option value="TTD">TTD — Dólar trinitense</option></optgroup><optgroup label="Referencia internacional"><option value="USD">USD — Dólar estadounidense</option><option value="EUR">EUR — Euro</option></optgroup></select></div>
+      <div><label>País / Región</label><input type="text" id="cfgPaisC" value="" placeholder="Ej: Chile, Colombia, LATAM..." oninput="markCfgDirty()"></div>
     </div>
   </div>
   <div class="card">
     <div class="ctitle">Nombres de segmentos</div>
     <div style="font-size:12px;color:var(--muted);margin-bottom:12px">Personaliza cómo se llaman los niveles de desempeño. Aparecerán en toda la calculadora y en el CSV exportado.</div>
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
-      <div><label style="color:var(--seg0)">● Segmento alto</label><input type="text" id="seg0nameC" value="Top" placeholder="Ej: Élite, A+" oninput="applySegNames()"><div style="font-size:10px;color:var(--muted);margin-top:4px">Los mejores resultados</div></div>
-      <div><label style="color:var(--seg1)">● Segmento medio</label><input type="text" id="seg1nameC" value="Medio" placeholder="Ej: Core, B" oninput="applySegNames()"><div style="font-size:10px;color:var(--muted);margin-top:4px">Dentro del objetivo</div></div>
-      <div><label style="color:var(--seg2)">● En desarrollo</label><input type="text" id="seg2nameC" value="En desarrollo" placeholder="Ej: Junior, Creciendo" oninput="applySegNames()"><div style="font-size:10px;color:var(--muted);margin-top:4px">Por debajo, en crecimiento</div></div>
+      <div><label style="color:var(--seg0)">● Segmento alto</label><input type="text" id="seg0nameC" value="Top" placeholder="Ej: Élite, A+" oninput="markCfgDirty()"><div style="font-size:10px;color:var(--muted);margin-top:4px">Los mejores resultados</div></div>
+      <div><label style="color:var(--seg1)">● Segmento medio</label><input type="text" id="seg1nameC" value="Medio" placeholder="Ej: Core, B" oninput="markCfgDirty()"><div style="font-size:10px;color:var(--muted);margin-top:4px">Dentro del objetivo</div></div>
+      <div><label style="color:var(--seg2)">● En desarrollo</label><input type="text" id="seg2nameC" value="En desarrollo" placeholder="Ej: Junior, Creciendo" oninput="markCfgDirty()"><div style="font-size:10px;color:var(--muted);margin-top:4px">Por debajo, en crecimiento</div></div>
     </div>
   </div>
-  <div class="card" style="background:var(--green-bg);border-color:var(--green-border)"><div style="display:flex;align-items:center;gap:10px"><div style="font-size:22px">✅</div><div><div style="font-size:13px;font-weight:700;color:var(--green-text)">Configuración aplicada automáticamente</div><div style="font-size:12px;color:var(--green-text);opacity:.8;margin-top:2px">Los cambios se reflejan al instante en todas las pestañas.</div></div></div></div>
+
+  <!-- Preview en vivo -->
+  <div class="card" id="cfgPreview" style="border:2px solid var(--border);background:var(--bg)">
+    <div class="ctitle">Vista previa</div>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center">
+      <div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:3px">PROGRAMA</div>
+        <div id="previewNombre" style="font-size:15px;font-weight:800;color:var(--primary)">Programa de Incentivos 2025</div>
+      </div>
+      <div style="color:var(--border);font-size:20px">·</div>
+      <div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:3px">EMPRESA</div>
+        <div id="previewOrg" style="font-size:13px;font-weight:600">—</div>
+      </div>
+      <div style="color:var(--border);font-size:20px">·</div>
+      <div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:3px">SEGMENTOS</div>
+        <div style="display:flex;gap:6px">
+          <span id="previewSeg0" style="background:rgba(250,52,94,.12);color:var(--primary-dark);padding:2px 8px;border-radius:8px;font-size:11px;font-weight:700">Top</span>
+          <span id="previewSeg1" style="background:rgba(6,95,70,.1);color:var(--green);padding:2px 8px;border-radius:8px;font-size:11px;font-weight:700">Medio</span>
+          <span id="previewSeg2" style="background:rgba(245,158,11,.12);color:#b45309;padding:2px 8px;border-radius:8px;font-size:11px;font-weight:700">En desarrollo</span>
+        </div>
+      </div>
+      <div style="color:var(--border);font-size:20px">·</div>
+      <div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:3px">MONEDA</div>
+        <div id="previewMoneda" style="font-size:13px;font-weight:700">CLP</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Save bar pegada al fondo -->
+  <div id="cfgSaveBar" style="position:sticky;bottom:0;background:#fff;border-top:2px solid var(--primary);padding:.875rem 0;display:none;align-items:center;justify-content:space-between;gap:12px;z-index:50;box-shadow:0 -4px 20px rgba(250,52,94,.12);margin-top:.875rem">
+    <div style="font-size:13px;color:var(--primary-dark);font-weight:700;display:flex;align-items:center;gap:6px">⚠️ Tienes cambios sin guardar</div>
+    <div style="display:flex;gap:8px">
+      <button class="btn" onclick="discardCfg()">Descartar</button>
+      <button class="btn btn-primary" onclick="saveClientCfg()">✓ Guardar configuración</button>
+    </div>
+  </div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -396,12 +447,88 @@ let areaData={};
 AREAS.forEach(a=>{areaData[a.id]=JSON.parse(JSON.stringify(BASE_PRESETS[a.id]));});
 
 // UTILS
-function fmt(n){return Math.round(n).toLocaleString('es-AR')}
+function fmt(n){return Math.round(n).toLocaleString('es-CL')}
 function getTotal(){return parseInt(document.getElementById('sTot')?.value)||200}
 function getSegNames(){return[document.getElementById('seg0nameC')?.value||'Top',document.getElementById('seg1nameC')?.value||'Medio',document.getElementById('seg2nameC')?.value||'En desarrollo'];}
-function getCfg(){return{nombre:document.getElementById('cfgNameC')?.value||'Programa de Incentivos',org:document.getElementById('cfgOrgC')?.value||'',moneda:document.getElementById('cfgMonedaC')?.value||'ARS',pais:document.getElementById('cfgPaisC')?.value||''};}
-function updateConfigLabel(){if(document.getElementById('page-resumen')?.classList.contains('on'))renderResumen();}
-function applySegNames(){renderMetas();calc();if(document.getElementById('page-resumen')?.classList.contains('on'))renderResumen();}
+function getCfg(){return{nombre:document.getElementById('cfgNameC')?.value||'Programa de Incentivos',org:document.getElementById('cfgOrgC')?.value||'',moneda:document.getElementById('cfgMonedaC')?.value||'CLP',pais:document.getElementById('cfgPaisC')?.value||''};}
+// ─── CONFIG SAVE/LOAD ─────────────────────────────────────────────────────────
+let cfgDirty = false;
+let cfgSnapshot = {};
+
+function markCfgDirty(){
+  cfgDirty = true;
+  const bar = document.getElementById('cfgSaveBar');
+  if(bar) bar.style.display = 'flex';
+  updateCfgPreview();
+}
+
+function updateCfgPreview(){
+  const nombre = document.getElementById('cfgNameC')?.value || 'Programa de Incentivos 2025';
+  const org    = document.getElementById('cfgOrgC')?.value  || '—';
+  const moneda = document.getElementById('cfgMonedaC')?.value || 'ARS';
+  const s0     = document.getElementById('seg0nameC')?.value || 'Top';
+  const s1     = document.getElementById('seg1nameC')?.value || 'Medio';
+  const s2     = document.getElementById('seg2nameC')?.value || 'En desarrollo';
+  const el = id => document.getElementById(id);
+  if(el('previewNombre')) el('previewNombre').textContent = nombre;
+  if(el('previewOrg'))    el('previewOrg').textContent    = org || '—';
+  if(el('previewMoneda')) el('previewMoneda').textContent = moneda;
+  if(el('previewSeg0'))   el('previewSeg0').textContent   = s0;
+  if(el('previewSeg1'))   el('previewSeg1').textContent   = s1;
+  if(el('previewSeg2'))   el('previewSeg2').textContent   = s2;
+}
+
+function saveClientCfg(){
+  cfgDirty = false;
+  // Persist in memory snapshot
+  cfgSnapshot = {
+    nombre: document.getElementById('cfgNameC')?.value || '',
+    org:    document.getElementById('cfgOrgC')?.value  || '',
+    moneda: document.getElementById('cfgMonedaC')?.value || 'ARS',
+    pais:   document.getElementById('cfgPaisC')?.value  || '',
+    seg0:   document.getElementById('seg0nameC')?.value || 'Top',
+    seg1:   document.getElementById('seg1nameC')?.value || 'Medio',
+    seg2:   document.getElementById('seg2nameC')?.value || 'En desarrollo',
+  };
+  // Hide save bar
+  const bar = document.getElementById('cfgSaveBar');
+  if(bar) bar.style.display = 'none';
+  // Apply everywhere
+  renderMetas(); calc();
+  if(document.getElementById('page-resumen')?.classList.contains('on')) renderResumen();
+  showToast('✓ Configuración guardada');
+}
+
+function discardCfg(){
+  if(Object.keys(cfgSnapshot).length === 0) {
+    // No previous save — just reset to defaults
+    const el = id => document.getElementById(id);
+    if(el('cfgNameC'))  el('cfgNameC').value  = 'Programa de Incentivos 2025';
+    if(el('cfgOrgC'))   el('cfgOrgC').value   = '';
+    if(el('cfgMonedaC'))el('cfgMonedaC').value = 'ARS';
+    if(el('cfgPaisC'))  el('cfgPaisC').value  = '';
+    if(el('seg0nameC')) el('seg0nameC').value  = 'Top';
+    if(el('seg1nameC')) el('seg1nameC').value  = 'Medio';
+    if(el('seg2nameC')) el('seg2nameC').value  = 'En desarrollo';
+  } else {
+    const el = id => document.getElementById(id);
+    if(el('cfgNameC'))  el('cfgNameC').value  = cfgSnapshot.nombre;
+    if(el('cfgOrgC'))   el('cfgOrgC').value   = cfgSnapshot.org;
+    if(el('cfgMonedaC'))el('cfgMonedaC').value = cfgSnapshot.moneda;
+    if(el('cfgPaisC'))  el('cfgPaisC').value  = cfgSnapshot.pais;
+    if(el('seg0nameC')) el('seg0nameC').value  = cfgSnapshot.seg0;
+    if(el('seg1nameC')) el('seg1nameC').value  = cfgSnapshot.seg1;
+    if(el('seg2nameC')) el('seg2nameC').value  = cfgSnapshot.seg2;
+  }
+  cfgDirty = false;
+  const bar = document.getElementById('cfgSaveBar');
+  if(bar) bar.style.display = 'none';
+  updateCfgPreview();
+  renderMetas(); calc();
+}
+
+function updateConfigLabel(){ /* kept for compatibility */ }
+function applySegNames(){ /* kept for compatibility */ }
 
 function getSegs(){
   const t=getTotal();
@@ -437,6 +564,7 @@ function setMode(mode){
   document.querySelectorAll('.mode-tab[id^="modeBtn-"]').forEach(b=>b.classList.remove('on'));
   document.getElementById('modeBtn-'+mode)?.classList.add('on');
   renderModeInputs();renderMetas();calc();
+  updateCfgPreview();
 }
 
 function renderModeInputs(){
@@ -491,11 +619,50 @@ function renderSegCounts(){
   document.getElementById('mobilityNote').innerHTML=`<strong>Movilidad mensual:</strong> ~${fmt(Math.round(t*mobUp/100))} personas podrían subir · ~${fmt(Math.round(t*mobDown/100))} podrían bajar. Esto puede generar una variación de <strong>-${mobDown}%</strong> a <strong>+${mobUp}%</strong> en el presupuesto mensual.`;
 }
 
+function getModeInfo(){
+  const M={
+    segmentado:{icon:'🎯',title:'Modelo por segmentos',desc:'Cada meta premia 3 grupos: Top, Medio y En desarrollo — con puntos distintos para cada uno.',segsLabel:'3 segmentos activos',color:'segmentado'},
+    dicotomico:{icon:'⚡',title:'Modelo dicotómico',desc:'Solo quien cumple la meta gana puntos. Sin rangos intermedios — todo o nada.',segsLabel:'Solo calificados',color:'dicotomico'},
+    umbral:{icon:'📊',title:'Modelo por umbral mínimo',desc:'Solo quienes superan el umbral puntúan. Entre ellos se distingue Top y Medio.',segsLabel:'2 segmentos activos',color:'umbral'},
+  };
+  return M[currentMode]||M.segmentado;
+}
+
 function renderMetas(){
   const metas=areaData[currentArea].metas;
   const names=getSegNames();
   if(document.getElementById('areaLabelCalc')) document.getElementById('areaLabelCalc').textContent=AREAS.find(a=>a.id===currentArea)?.label||'';
+
+  // ── Render mode banner ──────────────────────────────────────────────────
+  const mi2=getModeInfo();
+  const banner=document.getElementById('modeBanner');
+  if(banner){
+    const segPills={
+      segmentado:`<span style="background:rgba(250,52,94,.12);color:var(--primary-dark);padding:3px 9px;border-radius:8px;font-size:11px;font-weight:700">${names[0]}</span>
+                  <span style="background:rgba(6,95,70,.1);color:var(--green);padding:3px 9px;border-radius:8px;font-size:11px;font-weight:700">${names[1]}</span>
+                  <span style="background:rgba(245,158,11,.12);color:#b45309;padding:3px 9px;border-radius:8px;font-size:11px;font-weight:700">${names[2]}</span>`,
+      dicotomico:`<span style="background:rgba(245,158,11,.12);color:#b45309;padding:3px 9px;border-radius:8px;font-size:11px;font-weight:700">✅ ${names[0]} — gana</span>
+                  <span style="background:#f3f4f6;color:#6b7280;padding:3px 9px;border-radius:8px;font-size:11px;font-weight:700">❌ No califica — 0 pts</span>`,
+      umbral:`<span style="background:rgba(250,52,94,.12);color:var(--primary-dark);padding:3px 9px;border-radius:8px;font-size:11px;font-weight:700">${names[0]}</span>
+              <span style="background:rgba(6,95,70,.1);color:var(--green);padding:3px 9px;border-radius:8px;font-size:11px;font-weight:700">${names[1]}</span>
+              <span style="background:#f3f4f6;color:#6b7280;padding:3px 9px;border-radius:8px;font-size:11px;font-weight:700">⬇ Bajo umbral — 0 pts</span>`,
+    };
+    banner.innerHTML=`<div class="mode-banner ${mi2.color}">
+      <div class="mb-left">
+        <span class="mb-icon">${mi2.icon}</span>
+        <div><div class="mb-title">${mi2.title}</div><div class="mb-desc">${mi2.desc}</div></div>
+      </div>
+      <div class="mb-segs">${segPills[currentMode]||''}</div>
+    </div>`;
+  }
+
+  // ── Render meta blocks ──────────────────────────────────────────────────
   const container=document.getElementById('metasContainer');container.innerHTML='';
+  const disabledHint={
+    segmentado:'Activar para ver los 3 segmentos y sus puntos',
+    dicotomico:'Activar para definir los puntos del grupo que califica',
+    umbral:'Activar para ver los segmentos sobre el umbral',
+  };
   metas.forEach((meta,mi)=>{
     const color=META_COLORS[mi%META_COLORS.length];
     const div=document.createElement('div');div.className='meta-block';
@@ -504,11 +671,19 @@ function renderMetas(){
       <label class="tog"><input type="checkbox" id="tog_${meta.id}" ${meta.on?'checked':''}><span class="tslider"></span></label>`;
     div.appendChild(header);
     const body=document.createElement('div');body.id='mbody_'+meta.id;
-    body.innerHTML=meta.on?renderMetaBody(meta,names):`<div class="meta-disabled">Desactivada — activar para incluir en el cálculo.</div>`;
+    body.innerHTML=meta.on
+      ? renderMetaBody(meta,names)
+      : `<div class="meta-disabled-mode">💤 ${disabledHint[currentMode]||'Desactivada'}</div>`;
     div.appendChild(body);
     if(mi<metas.length-1){const d=document.createElement('div');d.className='divider';div.appendChild(d);}
     container.appendChild(div);
-    header.querySelector('input').addEventListener('change',function(){meta.on=this.checked;body.innerHTML=meta.on?renderMetaBody(meta,names):`<div class="meta-disabled">Desactivada — activar para incluir en el cálculo.</div>`;calc();});
+    header.querySelector('input').addEventListener('change',function(){
+      meta.on=this.checked;
+      body.innerHTML=meta.on
+        ? renderMetaBody(meta,getSegNames())
+        : `<div class="meta-disabled-mode">💤 ${disabledHint[currentMode]||'Desactivada'}</div>`;
+      calc();
+    });
   });
 }
 
@@ -636,7 +811,7 @@ function calcScen(){
 
 // RESUMEN
 function renderResumen(){
-  const today=new Date().toLocaleDateString('es-AR',{year:'numeric',month:'long',day:'numeric'});
+  const today=new Date().toLocaleDateString('es-CL',{year:'numeric',month:'long',day:'numeric'});
   const cfg=getCfg();
   const prog=cfg.nombre;const org=cfg.org;
   document.getElementById('rMeta').textContent=`${prog?prog+' · ':''}${org?org+' · ':''}${AREAS.find(a=>a.id===currentArea)?.label} · ${today}`;
@@ -681,7 +856,7 @@ function renderResumen(){
 function exportCSV(){
   const[top,mid,dev]=getSegs();const segs=[top,mid,dev];
   const names=getSegNames();const area=AREAS.find(a=>a.id===currentArea)?.label||currentArea;
-  const today=new Date().toLocaleDateString('es-AR');
+  const today=new Date().toLocaleDateString('es-CL');
   const metas=areaData[currentArea].metas.filter(m=>m.on);
   const mobUp=parseInt(document.getElementById('sUp')?.value||5);
   const mobDown=parseInt(document.getElementById('sDown')?.value||5);
@@ -781,6 +956,7 @@ function exportCSV(){
 function renderAll(){
   initAreaTabs('areaTabs',()=>{renderMetas();calc();});
   renderModeInputs();renderMetas();calc();
+  updateCfgPreview();
 }
 document.getElementById('sTot').addEventListener('input',e=>{document.getElementById('sTotV').textContent=e.target.value;calc();});
 document.getElementById('sUp').addEventListener('input',e=>{document.getElementById('sUpV').textContent=e.target.value+'%';calc();});
