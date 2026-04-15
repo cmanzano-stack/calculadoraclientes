@@ -871,7 +871,7 @@ function renderMetas(){
   const names=getSegNames();
   if(document.getElementById('areaLabelCalc')) document.getElementById('areaLabelCalc').textContent=AREAS.find(a=>a.id===currentArea)?.label||'';
 
-  // ── Render mode banner ──────────────────────────────────────────────────
+  // Mode banner
   const mi2=getModeInfo();
   const banner=document.getElementById('modeBanner');
   if(banner){
@@ -886,41 +886,62 @@ function renderMetas(){
               <span style="background:#f3f4f6;color:#6b7280;padding:3px 9px;border-radius:8px;font-size:11px;font-weight:700">⬇ Bajo umbral — 0 pts</span>`,
     };
     banner.innerHTML=`<div class="mode-banner ${mi2.color}">
-      <div class="mb-left">
-        <span class="mb-icon">${mi2.icon}</span>
+      <div class="mb-left"><span class="mb-icon">${mi2.icon}</span>
         <div><div class="mb-title">${mi2.title}</div><div class="mb-desc">${mi2.desc}</div></div>
       </div>
       <div class="mb-segs">${segPills[currentMode]||''}</div>
     </div>`;
   }
 
-  // ── Render meta blocks ──────────────────────────────────────────────────
-  const container=document.getElementById('metasContainer');container.innerHTML='';
+  const container=document.getElementById('metasContainer');
+  container.innerHTML='';
+
   const disabledHint={
-    segmentado:'Activar para ver los 3 segmentos y sus puntos',
+    segmentado:'Activar para ver los segmentos y sus puntos',
     dicotomico:'Activar para definir los puntos del grupo que califica',
     umbral:'Activar para ver los segmentos sobre el umbral',
   };
+
+  // Build all HTML as one string and inject, then attach listeners by ID
+  const META_COLORS_LOCAL=['#FA345E','#065F46','#f59e0b','#8b5cf6','#06b6d4','#ec4899','#ef4444','#3b82f6'];
+  let containerHTML = '';
   metas.forEach((meta,mi)=>{
     const color=META_COLORS[mi%META_COLORS.length];
-    const div=document.createElement('div');div.className='meta-block';
-    const header=document.createElement('div');header.className='meta-header';
-    header.innerHTML=`<div class="meta-title"><span class="dot" style="background:${color}"></span>${meta.label}${meta.flujo?'<span class="flujo-badge">💰 flujo</span>':''}</div>
-      <label class="tog"><input type="checkbox" id="tog_${meta.id}" ${meta.on?'checked':''}><span class="tslider"></span></label>`;
-    div.appendChild(header);
-    const body=document.createElement('div');body.id='mbody_'+meta.id;
-    body.innerHTML=meta.on
+    const isOn = meta.on;
+    const bodyHTML = isOn
       ? renderMetaBody(meta,names)
       : `<div class="meta-disabled-mode">💤 ${disabledHint[currentMode]||'Desactivada'}</div>`;
-    div.appendChild(body);
-    if(mi<metas.length-1){const d=document.createElement('div');d.className='divider';div.appendChild(d);}
-    container.appendChild(div);
-    header.querySelector('input').addEventListener('change',function(){
-      meta.on=this.checked;
-      body.innerHTML=meta.on
-        ? renderMetaBody(meta,getSegNames())
+    const divider = mi < metas.length-1 ? '<div class="divider"></div>' : '';
+    containerHTML += `
+      <div class="meta-block">
+        <div class="meta-header">
+          <div class="meta-title">
+            <span class="dot" style="background:${color}"></span>
+            ${meta.label}${meta.flujo?'<span class="flujo-badge">💰 flujo</span>':''}
+          </div>
+          <label class="tog">
+            <input type="checkbox" id="tog_${meta.id}" ${isOn?'checked':''}>
+            <span class="tslider"></span>
+          </label>
+        </div>
+        <div id="mbody_${meta.id}">${bodyHTML}</div>
+        ${divider}
+      </div>`;
+  });
+  container.innerHTML = containerHTML;
+
+  // Attach toggle listeners AFTER innerHTML is set (elements exist in DOM)
+  metas.forEach((meta)=>{
+    const tog = document.getElementById('tog_'+meta.id);
+    if(!tog) return;
+    tog.addEventListener('change', function(){
+      meta.on = this.checked;
+      const body = document.getElementById('mbody_'+meta.id);
+      if(body) body.innerHTML = meta.on
+        ? renderMetaBody(meta, getSegNames())
         : `<div class="meta-disabled-mode">💤 ${disabledHint[currentMode]||'Desactivada'}</div>`;
       calc();
+      if(typeof saveSession==='function') saveSession();
     });
   });
 }
