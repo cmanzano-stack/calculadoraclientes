@@ -802,7 +802,6 @@ function setMode(mode){
   document.getElementById('modeBtn-'+mode)?.classList.add('on');
   renderModeInputs();renderMetas();calc();
   if(typeof updateCfgPreview==="function")updateCfgPreview();
-  loadAndRestoreSession();
 }
 
 function renderModeInputs(){
@@ -1263,7 +1262,6 @@ function renderAll(){
   initAreaTabs('areaTabs',()=>{renderMetas();calc();});
   renderModeInputs();renderMetas();calc();
   if(typeof updateCfgPreview==="function")updateCfgPreview();
-  loadAndRestoreSession();
 }
 // sTot listener moved to oninput on the input element
 
