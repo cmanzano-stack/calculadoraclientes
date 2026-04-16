@@ -787,6 +787,7 @@ function showPage(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('on'));
   document.getElementById('page-'+id)?.classList.add('on');
+  window.scrollTo(0,0);
   const idx={calc:0,escenarios:1,resumen:2,config:3}[id];
   if(idx!==undefined) document.querySelectorAll('.nav-tab')[idx]?.classList.add('on');
   if(id==='escenarios') renderScenarios();
