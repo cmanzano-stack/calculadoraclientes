@@ -162,15 +162,11 @@ tr.hilite td{background:var(--primary-light);font-weight:600}
   .g2,.g3,.seg-inputs{grid-template-columns:1fr}
   .hero{flex-direction:column}.hero-right{text-align:left}
 }
-
-/* ── QUICK DOT BUTTONS ─────────────────────────────────────── */
 .quick-dot-btn{padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;background:var(--light);border:1px solid var(--border);color:var(--muted);font-family:'Montserrat',sans-serif;transition:all .15s}
 .quick-dot-btn:hover{background:var(--primary-light);border-color:var(--primary);color:var(--primary)}
-/* ── VARIABILITY BUTTONS ───────────────────────────────────── */
 .var-btn{flex:1;padding:8px 6px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;background:var(--light);border:1px solid var(--border);color:var(--muted);font-family:'Montserrat',sans-serif;transition:all .15s;text-align:center;line-height:1.3}
 .var-btn:hover{border-color:var(--primary);color:var(--primary)}
 .var-btn.active{background:var(--primary-light);border-color:var(--primary);color:var(--primary-dark)}
-/* ── IGUALITARIA META BLOCK ────────────────────────────────── */
 .igual-block{background:#f8fafc;border:2px solid var(--border);border-radius:10px;padding:1rem;margin-top:8px}
 .igual-toggle{display:flex;align-items:center;gap:10px;margin-bottom:.75rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
 .igual-toggle-label{font-size:12px;font-weight:700;color:var(--text);flex:1}
@@ -182,9 +178,7 @@ tr.hilite td{background:var(--primary-light);font-weight:600}
 .seg-type-toggle{display:flex;gap:6px;margin-bottom:8px}
 .seg-type-btn{padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;border:1px solid var(--border);background:var(--card);color:var(--muted);font-family:'Montserrat',sans-serif;transition:all .15s}
 .seg-type-btn.active{background:var(--primary);color:#fff;border-color:var(--primary)}
-/* ── SAVE BADGE ────────────────────────────────────────────── */
 .save-badge{font-size:11px;color:var(--muted);font-weight:600;transition:opacity .5s;white-space:nowrap}
-/* ── RESTORE BANNER ────────────────────────────────────────── */
 .restore-banner{background:var(--green-bg);border-bottom:1px solid var(--green-border);padding:.625rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--green-text)}
 .restore-banner strong{font-weight:700}
 .restore-actions{display:flex;gap:8px}
@@ -194,6 +188,96 @@ tr.hilite td{background:var(--primary-light);font-weight:600}
 </style>
 </head>
 <body>
+
+<!-- ══════════════════════════════════════════════════════════════
+     PROTECTION LAYER — © Apprecio · cmanzano-stack.github.io
+     ══════════════════════════════════════════════════════════════ -->
+<script>
+(function(){
+  // 1. DOMAIN LOCK
+  var _a=['cmanzano-stack.github.io'];
+  var _h=window.location.hostname;
+  if(_h!=='localhost'&&_h!=='127.0.0.1'&&_h!==''&&_a.indexOf(_h)===-1){
+    document.documentElement.innerHTML=[
+      '<style>*{margin:0;padding:0;box-sizing:border-box}body{background:#0a0a0a;display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif}',
+      '.ap-lock{text-align:center;color:#fff;padding:2rem}.ap-lock-icon{font-size:56px;margin-bottom:1rem}',
+      '.ap-lock-title{font-size:20px;font-weight:700;color:#FA345E;margin-bottom:.5rem}',
+      '.ap-lock-sub{font-size:13px;color:#888;margin-top:.5rem}</style>',
+      '<body><div class="ap-lock">',
+      '<div class="ap-lock-icon">&#128274;</div>',
+      '<div class="ap-lock-title">Acceso no autorizado</div>',
+      '<div>Este contenido est\u00e1 protegido.</div>',
+      '<div class="ap-lock-sub">\u00a9 Apprecio \u2014 Todos los derechos reservados</div>',
+      '</div></body>'
+    ].join('');
+    return;
+  }
+
+  // 2. BLOCK DEVTOOLS SHORTCUTS
+  document.addEventListener('keydown',function(e){
+    if(e.key==='F12'){e.preventDefault();e.stopPropagation();return false;}
+    if(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C')){e.preventDefault();return false;}
+    if(e.ctrlKey&&(e.key==='u'||e.key==='s')){e.preventDefault();return false;}
+  },true);
+
+  // 3. BLOCK RIGHT CLICK
+  document.addEventListener('contextmenu',function(e){e.preventDefault();return false;},true);
+
+  // 4. DEVTOOLS SIZE DETECTION
+  var _dt=false;
+  setInterval(function(){
+    var _w=window.outerWidth-window.innerWidth>160;
+    var _v=window.outerHeight-window.innerHeight>160;
+    if((_w||_v)&&!_dt){
+      _dt=true;
+      document.body.style.filter='blur(8px)';
+      document.body.style.pointerEvents='none';
+      var _d=document.createElement('div');
+      _d.id='_apwarn';
+      _d.style.cssText='position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.88);';
+      _d.innerHTML='<div style="text-align:center;color:#fff;padding:2rem"><div style="font-size:52px">&#128274;</div><div style="font-size:18px;font-weight:700;color:#FA345E;margin:.75rem 0">Contenido protegido</div><div style="font-size:13px;color:#aaa">\u00a9 Apprecio \u2014 Cierra las herramientas de desarrollador para continuar.</div></div>';
+      document.body.appendChild(_d);
+    }else if(!_w&&!_v&&_dt){
+      _dt=false;
+      document.body.style.filter='';
+      document.body.style.pointerEvents='';
+      var _x=document.getElementById('_apwarn');
+      if(_x)_x.remove();
+    }
+  },1000);
+
+  // 5. WATERMARK (invisible + visible)
+  window.addEventListener('load',function(){
+    var _wm=document.createElement('div');
+    _wm.setAttribute('data-owner','apprecio-cmanzano');
+    _wm.setAttribute('data-domain','cmanzano-stack.github.io');
+    _wm.style.cssText='position:fixed;bottom:0;right:0;width:1px;height:1px;opacity:0;pointer-events:none;z-index:-1;font-size:1px;color:transparent;user-select:none;';
+    _wm.textContent='\u00a9 Apprecio 2025 \u2022 cmanzano-stack.github.io \u2022 Producto protegido. Prohibida la copia o redistribuci\u00f3n sin autorizaci\u00f3n expresa.';
+    document.body.appendChild(_wm);
+    var _f=document.createElement('div');
+    _f.style.cssText='position:fixed;bottom:8px;left:50%;transform:translateX(-50%);font-size:10px;color:rgba(250,52,94,0.22);font-family:Montserrat,sans-serif;font-weight:600;pointer-events:none;user-select:none;letter-spacing:.06em;z-index:1;white-space:nowrap;';
+    _f.textContent='\u00a9 Apprecio \u2022 cmanzano-stack.github.io';
+    document.body.appendChild(_f);
+  });
+
+  // 6. BLOCK BULK COPY
+  document.addEventListener('copy',function(e){
+    var _s=window.getSelection().toString();
+    if(_s.length>200){
+      e.clipboardData.setData('text/plain','\u00a9 Contenido protegido \u2022 Apprecio \u2022 cmanzano-stack.github.io');
+      e.preventDefault();
+    }
+  });
+
+  // 7. BLOCK PRINT
+  window.addEventListener('beforeprint',function(e){e.preventDefault();window.stop();});
+  var _pmq=window.matchMedia('print');
+  if(_pmq)_pmq.addListener(function(mq){if(mq.matches){document.body.style.display='none';setTimeout(function(){document.body.style.display='';},100);}});
+
+})();
+</script>
+<!-- ══════════════════════════════════════════════════════════════ -->
+
 <div class="restore-banner" id="restoreBanner" style="display:none">
   <div>✅ <strong>Sesión anterior restaurada.</strong> Última vez modificado: <span id="restoreTs">—</span></div>
   <div class="restore-actions">
@@ -256,7 +340,6 @@ tr.hilite td{background:var(--primary-light);font-weight:600}
   <div class="area-tabs" id="areaTabs"></div>
 
   <div class="g2">
-    <!-- DOTACIÓN -->
     <div class="card" style="margin:0">
       <div class="ctitle">Equipo y distribución</div>
       <label>Total de colaboradores</label>
@@ -276,7 +359,6 @@ tr.hilite td{background:var(--primary-light);font-weight:600}
         <button onclick="quickDot(5000)" class="quick-dot-btn">5.000</button>
         <button onclick="quickDot(10000)"class="quick-dot-btn">10.000</button>
       </div>
-
       <div class="divider"></div>
       <div class="ctitle">Modelo de premiación</div>
       <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
@@ -286,7 +368,6 @@ tr.hilite td{background:var(--primary-light);font-weight:600}
       </div>
       <div class="mode-desc" id="modeDesc"></div>
       <div id="modeInputs"></div>
-
       <div class="divider"></div>
       <div class="ctitle">Variabilidad mensual</div>
       <div style="font-size:11px;color:var(--muted);margin-bottom:8px;line-height:1.6">¿Cuánta variación esperas mes a mes? Esto define el rango del presupuesto.</div>
@@ -298,7 +379,6 @@ tr.hilite td{background:var(--primary-light);font-weight:600}
       <input type="hidden" id="sUp" value="5"><input type="hidden" id="sDown" value="5">
     </div>
 
-    <!-- SEGMENTOS -->
     <div class="card" style="margin:0">
       <div class="ctitle">Distribución actual</div>
       <div id="segCounts"></div>
@@ -310,7 +390,6 @@ tr.hilite td{background:var(--primary-light);font-weight:600}
     </div>
   </div>
 
-  <!-- METAS -->
   <div class="card">
     <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:.875rem">
       <div class="ctitle" style="margin:0">Metas activas — <span id="areaLabelCalc" style="color:var(--primary)"></span></div>
@@ -320,7 +399,6 @@ tr.hilite td{background:var(--primary-light);font-weight:600}
     <div id="metasContainer"></div>
   </div>
 
-  <!-- HERO -->
   <div class="hero">
     <div>
       <div class="hero-lbl">Puntos mensuales estimados</div>
@@ -369,7 +447,7 @@ tr.hilite td{background:var(--primary-light);font-weight:600}
   <div id="resumenContent"></div>
 </div>
 
-<!-- CONFIGURACIÓN CLIENTE -->
+<!-- CONFIGURACIÓN -->
 <div class="page" id="page-config">
   <div class="card">
     <div class="ctitle">Información del programa</div>
@@ -384,30 +462,21 @@ tr.hilite td{background:var(--primary-light);font-weight:600}
   </div>
   <div class="card">
     <div class="ctitle">Nombres de segmentos</div>
-    <div style="font-size:12px;color:var(--muted);margin-bottom:12px">Personaliza cómo se llaman los niveles de desempeño. Aparecerán en toda la calculadora y en el CSV exportado.</div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:12px">Personaliza cómo se llaman los niveles de desempeño.</div>
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
       <div><label style="color:var(--seg0)">● Segmento alto</label><input type="text" id="seg0nameC" value="Top" placeholder="Ej: Élite, A+" oninput="markCfgDirty()"><div style="font-size:10px;color:var(--muted);margin-top:4px">Los mejores resultados</div></div>
       <div><label style="color:var(--seg1)">● Segmento medio</label><input type="text" id="seg1nameC" value="Medio" placeholder="Ej: Core, B" oninput="markCfgDirty()"><div style="font-size:10px;color:var(--muted);margin-top:4px">Dentro del objetivo</div></div>
       <div><label style="color:var(--seg2)">● En desarrollo</label><input type="text" id="seg2nameC" value="En desarrollo" placeholder="Ej: Junior, Creciendo" oninput="markCfgDirty()"><div style="font-size:10px;color:var(--muted);margin-top:4px">Por debajo, en crecimiento</div></div>
     </div>
   </div>
-
-  <!-- Preview en vivo -->
   <div class="card" id="cfgPreview" style="border:2px solid var(--border);background:var(--bg)">
     <div class="ctitle">Vista previa</div>
     <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center">
-      <div>
-        <div style="font-size:11px;color:var(--muted);margin-bottom:3px">PROGRAMA</div>
-        <div id="previewNombre" style="font-size:15px;font-weight:800;color:var(--primary)">Programa de Incentivos 2025</div>
-      </div>
+      <div><div style="font-size:11px;color:var(--muted);margin-bottom:3px">PROGRAMA</div><div id="previewNombre" style="font-size:15px;font-weight:800;color:var(--primary)">Programa de Incentivos 2025</div></div>
       <div style="color:var(--border);font-size:20px">·</div>
-      <div>
-        <div style="font-size:11px;color:var(--muted);margin-bottom:3px">EMPRESA</div>
-        <div id="previewOrg" style="font-size:13px;font-weight:600">—</div>
-      </div>
+      <div><div style="font-size:11px;color:var(--muted);margin-bottom:3px">EMPRESA</div><div id="previewOrg" style="font-size:13px;font-weight:600">—</div></div>
       <div style="color:var(--border);font-size:20px">·</div>
-      <div>
-        <div style="font-size:11px;color:var(--muted);margin-bottom:3px">SEGMENTOS</div>
+      <div><div style="font-size:11px;color:var(--muted);margin-bottom:3px">SEGMENTOS</div>
         <div style="display:flex;gap:6px">
           <span id="previewSeg0" style="background:rgba(250,52,94,.12);color:var(--primary-dark);padding:2px 8px;border-radius:8px;font-size:11px;font-weight:700">Top</span>
           <span id="previewSeg1" style="background:rgba(6,95,70,.1);color:var(--green);padding:2px 8px;border-radius:8px;font-size:11px;font-weight:700">Medio</span>
@@ -415,14 +484,9 @@ tr.hilite td{background:var(--primary-light);font-weight:600}
         </div>
       </div>
       <div style="color:var(--border);font-size:20px">·</div>
-      <div>
-        <div style="font-size:11px;color:var(--muted);margin-bottom:3px">MONEDA</div>
-        <div id="previewMoneda" style="font-size:13px;font-weight:700">CLP</div>
-      </div>
+      <div><div style="font-size:11px;color:var(--muted);margin-bottom:3px">MONEDA</div><div id="previewMoneda" style="font-size:13px;font-weight:700">CLP</div></div>
     </div>
   </div>
-
-  <!-- Save bar pegada al fondo -->
   <div id="cfgSaveBar" style="position:sticky;bottom:0;background:#fff;border-top:2px solid var(--primary);padding:.875rem 0;display:none;align-items:center;justify-content:space-between;gap:12px;z-index:50;box-shadow:0 -4px 20px rgba(250,52,94,.12);margin-top:.875rem">
     <div style="font-size:13px;color:var(--primary-dark);font-weight:700;display:flex;align-items:center;gap:6px">⚠️ Tienes cambios sin guardar</div>
     <div style="display:flex;gap:8px">
@@ -435,14 +499,12 @@ tr.hilite td{background:var(--primary-light);font-weight:600}
 <div class="toast" id="toast"></div>
 
 <script>
-// ── PRE-INIT DECLARATIONS (must be before renderAll) ──────────────────────
-const IS_CLIENT = true;
-let _saveTimer = null;
-let currentVar = 'low';
-const VAR_MAP = {low:{up:5,down:5}, medium:{up:15,down:15}, high:{up:25,down:25}};
-const STAGE_NAMES = {onboarding:'🌱 Onboarding', growth:'📈 Crecimiento', alto:'🏆 Alto rendimiento'};
-const STAGE_NAMES_SHORT = {onboarding:'Onboarding', growth:'Crecimiento', alto:'Alto rendimiento'};
-// ─────────────────────────────────────────────────────────────────────────
+const IS_CLIENT=true;
+let _saveTimer=null;
+let currentVar='low';
+const VAR_MAP={low:{up:5,down:5},medium:{up:15,down:15},high:{up:25,down:25}};
+const STAGE_NAMES={onboarding:'🌱 Onboarding',growth:'📈 Crecimiento',alto:'🏆 Alto rendimiento'};
+const STAGE_NAMES_SHORT={onboarding:'Onboarding',growth:'Crecimiento',alto:'Alto rendimiento'};
 const SEG_COLORS=['#FA345E','#065F46','#f59e0b'];
 const META_COLORS=['#FA345E','#065F46','#f59e0b','#8b5cf6','#06b6d4','#ec4899','#ef4444','#3b82f6'];
 const AREAS=[
@@ -560,227 +622,161 @@ const BASE_PRESETS={
   },
 };
 
-// STATE
 let currentArea='ventas';
 let currentScenType='onboarding';
 let currentMode='segmentado';
-
-// ── STAGE STATE ─────────────────────────────────────────────────────────────
-let selectedStage = null;
-let loadedStage   = null;
-let originalMetas = {};
-
+let selectedStage=null;
+let loadedStage=null;
+let originalMetas={};
 
 function selectStage(stage){
-  selectedStage = stage;
-  ['onboarding','growth','alto'].forEach(s => {
-    const card = document.getElementById('stageCard-'+s);
-    if(!card) return;
-    card.classList.toggle('active', s === stage);
-    const old = card.querySelector('.sc-badge');
-    if(old) old.remove();
-    if(s === stage){
-      const b = document.createElement('span');
-      b.className = 'sc-badge sc-badge-active';
-      b.textContent = loadedStage === s ? '✓ Activo' : 'Seleccionado';
-      card.appendChild(b);
-    } else if(loadedStage === s){
-      const b = document.createElement('span');
-      b.className = 'sc-badge';
-      b.style.cssText = 'background:#e5e7eb;color:#6b7280';
-      b.textContent = '✓ Activo';
-      card.appendChild(b);
-    }
+  selectedStage=stage;
+  ['onboarding','growth','alto'].forEach(s=>{
+    const card=document.getElementById('stageCard-'+s);
+    if(!card)return;
+    card.classList.toggle('active',s===stage);
+    const old=card.querySelector('.sc-badge');
+    if(old)old.remove();
+    if(s===stage){const b=document.createElement('span');b.className='sc-badge sc-badge-active';b.textContent=loadedStage===s?'✓ Activo':'Seleccionado';card.appendChild(b);}
+    else if(loadedStage===s){const b=document.createElement('span');b.className='sc-badge';b.style.cssText='background:#e5e7eb;color:#6b7280';b.textContent='✓ Activo';card.appendChild(b);}
   });
-  document.getElementById('stageLabelValue').textContent = STAGE_NAMES[stage] || stage;
+  document.getElementById('stageLabelValue').textContent=STAGE_NAMES[stage]||stage;
   document.getElementById('stageActionRow')?.classList.add('visible');
-  document.getElementById('stageActionRow')?.classList.add('visible');
-  const btn = document.getElementById('stageApplyBtn');
-  btn.disabled = (stage === loadedStage);
-  btn.textContent = stage === loadedStage ? '✓ Ya cargado' : 'Cargar en calculadora →';
+  const btn=document.getElementById('stageApplyBtn');
+  btn.disabled=(stage===loadedStage);
+  btn.textContent=stage===loadedStage?'✓ Ya cargado':'Cargar en calculadora →';
 }
 
 function applyStageToCalc(){
-  if(!selectedStage) return;
-  const stage = selectedStage;
-  const scenRows = areaData[currentArea].scenarios?.[stage] || [];
-  if(!scenRows.length){
-    showToast('No hay actividades definidas para este escenario en esta área.');
-    return;
-  }
-  // Save original metas snapshot (only first time)
-  if(!loadedStage){
-    originalMetas[currentArea] = JSON.parse(JSON.stringify(areaData[currentArea].metas));
-  }
-  // Build metas from scenario rows
-  const names = getSegNames();
-  const IGUAL_LABELS=['Primer login plataforma', 'Primer login', 'Primera capacitación', 'Encuesta bienvenida', 'Primera venta registrada', 'Primera venta', 'Primer cruce de boletas', 'Inducción completada', 'Primera entrega', 'Primer deploy', 'Primer ticket cerrado', 'Capacitación inicial', 'Primer proceso completado', 'Inducción ops', 'Onboarding técnico', 'Primera gestión', 'Módulo negociación', 'Primera venta', 'Primer ticket cerrado'];
-  areaData[currentArea].metas = scenRows.map((row, i) => ({
-    id: 'scen_'+stage+'_'+i,
-    label: row.label,
-    on: true,
-    flujo: false,
-    // Onboarding actions and simple completions are igualitaria by default
-    igual: stage==='onboarding' || IGUAL_LABELS.includes(row.label),
-    segs: [
-      {name: names[0], pts: row.pts[0], ref:''},
-      {name: names[1], pts: row.pts[1], ref:''},
-      {name: names[2], pts: row.pts[2], ref:''},
-    ]
+  if(!selectedStage)return;
+  const stage=selectedStage;
+  const scenRows=areaData[currentArea].scenarios?.[stage]||[];
+  if(!scenRows.length){showToast('No hay actividades definidas para este escenario en esta área.');return;}
+  if(!loadedStage){originalMetas[currentArea]=JSON.parse(JSON.stringify(areaData[currentArea].metas));}
+  const names=getSegNames();
+  const IGUAL_LABELS=['Primer login plataforma','Primer login','Primera capacitación','Encuesta bienvenida','Primera venta registrada','Primera venta','Primer cruce de boletas','Inducción completada','Primera entrega','Primer deploy','Primer ticket cerrado','Capacitación inicial','Primer proceso completado','Inducción ops','Onboarding técnico','Primera gestión','Módulo negociación','Primera venta','Primer ticket cerrado'];
+  areaData[currentArea].metas=scenRows.map((row,i)=>({
+    id:'scen_'+stage+'_'+i,label:row.label,on:true,flujo:false,
+    igual:stage==='onboarding'||IGUAL_LABELS.includes(row.label),
+    segs:[{name:names[0],pts:row.pts[0],ref:''},{name:names[1],pts:row.pts[1],ref:''},{name:names[2],pts:row.pts[2],ref:''}]
   }));
-  loadedStage = stage;
-  // Update UI
-  document.getElementById('stageApplyBtn').disabled = true;
-  document.getElementById('stageApplyBtn').textContent = '✓ Ya cargado';
-  document.getElementById('stageLoadedBadge').style.display = 'block';
-  document.getElementById('stageLoadedBadge').textContent = '✓ '+STAGE_NAMES_SHORT[stage]+' cargado';
-  document.getElementById('stageResetBtn').style.display = 'block';
-  document.getElementById('metasModifiedNote').style.display = 'none';
-  const ml = document.getElementById('modifiedStageLabel');
-  if(ml) ml.textContent = STAGE_NAMES_SHORT[stage];
+  loadedStage=stage;
+  document.getElementById('stageApplyBtn').disabled=true;
+  document.getElementById('stageApplyBtn').textContent='✓ Ya cargado';
+  document.getElementById('stageLoadedBadge').style.display='block';
+  document.getElementById('stageLoadedBadge').textContent='✓ '+STAGE_NAMES_SHORT[stage]+' cargado';
+  document.getElementById('stageResetBtn').style.display='block';
+  document.getElementById('metasModifiedNote').style.display='none';
+  const ml=document.getElementById('modifiedStageLabel');
+  if(ml)ml.textContent=STAGE_NAMES_SHORT[stage];
   selectStage(stage);
-  renderMetas(); calc();
-  setTimeout(attachMetaChangeWatchers, 100);
+  renderMetas();calc();
+  setTimeout(attachMetaChangeWatchers,100);
   showToast('✓ Escenario "'+STAGE_NAMES_SHORT[stage]+'" cargado');
 }
 
 function attachMetaChangeWatchers(){
-  document.querySelectorAll('#metasContainer input').forEach(input => {
-    input.addEventListener('change', () => {
-      const note = document.getElementById('metasModifiedNote');
-      if(loadedStage && note) note.style.display = 'flex';
-    }, {once: true});
+  document.querySelectorAll('#metasContainer input').forEach(input=>{
+    input.addEventListener('change',()=>{
+      const note=document.getElementById('metasModifiedNote');
+      if(loadedStage&&note)note.style.display='flex';
+    },{once:true});
   });
 }
 
 function resetStage(){
-  if(!loadedStage) return;
-  if(!confirm('¿Restaurar las metas originales? Se perderán los ajustes sobre el escenario "'+STAGE_NAMES_SHORT[loadedStage]+'".')){
-    return;
-  }
-  if(originalMetas[currentArea]){
-    areaData[currentArea].metas = JSON.parse(JSON.stringify(originalMetas[currentArea]));
-    delete originalMetas[currentArea];
-  }
-  loadedStage = null; selectedStage = null;
-  document.getElementById('stageApplyBtn').disabled = true;
-  document.getElementById('stageApplyBtn').textContent = 'Cargar en calculadora →';
-  document.getElementById('stageLoadedBadge').style.display = 'none';
-  document.getElementById('stageResetBtn').style.display = 'none';
-  document.getElementById('stageLabelValue').textContent = 'Sin seleccionar';
+  if(!loadedStage)return;
+  if(!confirm('¿Restaurar las metas originales? Se perderán los ajustes sobre el escenario "'+STAGE_NAMES_SHORT[loadedStage]+'".')){return;}
+  if(originalMetas[currentArea]){areaData[currentArea].metas=JSON.parse(JSON.stringify(originalMetas[currentArea]));delete originalMetas[currentArea];}
+  loadedStage=null;selectedStage=null;
+  document.getElementById('stageApplyBtn').disabled=true;
+  document.getElementById('stageApplyBtn').textContent='Cargar en calculadora →';
+  document.getElementById('stageLoadedBadge').style.display='none';
+  document.getElementById('stageResetBtn').style.display='none';
+  document.getElementById('stageLabelValue').textContent='Sin seleccionar';
   document.getElementById('stageActionRow')?.classList.remove('visible');
-  document.getElementById('metasModifiedNote').style.display = 'none';
-  ['onboarding','growth','alto'].forEach(s => {
-    const card = document.getElementById('stageCard-'+s);
-    if(!card) return;
-    card.classList.remove('active');
-    const b = card.querySelector('.sc-badge');
-    if(b) b.remove();
-  });
-  renderMetas(); calc();
+  document.getElementById('metasModifiedNote').style.display='none';
+  ['onboarding','growth','alto'].forEach(s=>{const card=document.getElementById('stageCard-'+s);if(!card)return;card.classList.remove('active');const b=card.querySelector('.sc-badge');if(b)b.remove();});
+  renderMetas();calc();
   showToast('✓ Metas originales restauradas');
 }
+
 let areaData={};
 AREAS.forEach(a=>{areaData[a.id]=JSON.parse(JSON.stringify(BASE_PRESETS[a.id]));});
 
-// UTILS
 function fmt(n){return Math.round(n).toLocaleString('es-CL')}
 function getTotal(){return parseInt(document.getElementById('sTot')?.value)||200}
 function getSegNames(){return[document.getElementById('seg0nameC')?.value||'Top',document.getElementById('seg1nameC')?.value||'Medio',document.getElementById('seg2nameC')?.value||'En desarrollo'];}
 function getCfg(){return{nombre:document.getElementById('cfgNameC')?.value||'Programa de Incentivos',org:document.getElementById('cfgOrgC')?.value||'',moneda:document.getElementById('cfgMonedaC')?.value||'CLP',pais:document.getElementById('cfgPaisC')?.value||''};}
-// ─── CONFIG SAVE/LOAD ─────────────────────────────────────────────────────────
-let cfgDirty = false;
-let cfgSnapshot = {};
+
+let cfgDirty=false;
+let cfgSnapshot={};
 
 function markCfgDirty(){
-  cfgDirty = true;
-  const bar = document.getElementById('cfgSaveBar');
-  if(bar) bar.style.display = 'flex';
+  cfgDirty=true;
+  const bar=document.getElementById('cfgSaveBar');
+  if(bar)bar.style.display='flex';
   updateCfgPreview();
 }
 
 function updateCfgPreview(){
-  const nombre = document.getElementById('cfgNameC')?.value || 'Programa de Incentivos 2025';
-  const org    = document.getElementById('cfgOrgC')?.value  || '—';
-  const moneda = document.getElementById('cfgMonedaC')?.value || 'ARS';
-  const s0     = document.getElementById('seg0nameC')?.value || 'Top';
-  const s1     = document.getElementById('seg1nameC')?.value || 'Medio';
-  const s2     = document.getElementById('seg2nameC')?.value || 'En desarrollo';
-  const el = id => document.getElementById(id);
-  if(el('previewNombre')) el('previewNombre').textContent = nombre;
-  if(el('previewOrg'))    el('previewOrg').textContent    = org || '—';
-  if(el('previewMoneda')) el('previewMoneda').textContent = moneda;
-  if(el('previewSeg0'))   el('previewSeg0').textContent   = s0;
-  if(el('previewSeg1'))   el('previewSeg1').textContent   = s1;
-  if(el('previewSeg2'))   el('previewSeg2').textContent   = s2;
+  const nombre=document.getElementById('cfgNameC')?.value||'Programa de Incentivos 2025';
+  const org=document.getElementById('cfgOrgC')?.value||'—';
+  const moneda=document.getElementById('cfgMonedaC')?.value||'ARS';
+  const s0=document.getElementById('seg0nameC')?.value||'Top';
+  const s1=document.getElementById('seg1nameC')?.value||'Medio';
+  const s2=document.getElementById('seg2nameC')?.value||'En desarrollo';
+  const el=id=>document.getElementById(id);
+  if(el('previewNombre'))el('previewNombre').textContent=nombre;
+  if(el('previewOrg'))el('previewOrg').textContent=org||'—';
+  if(el('previewMoneda'))el('previewMoneda').textContent=moneda;
+  if(el('previewSeg0'))el('previewSeg0').textContent=s0;
+  if(el('previewSeg1'))el('previewSeg1').textContent=s1;
+  if(el('previewSeg2'))el('previewSeg2').textContent=s2;
 }
 
 function saveClientCfg(){
-  cfgDirty = false;
-  // Persist in memory snapshot
-  cfgSnapshot = {
-    nombre: document.getElementById('cfgNameC')?.value || '',
-    org:    document.getElementById('cfgOrgC')?.value  || '',
-    moneda: document.getElementById('cfgMonedaC')?.value || 'ARS',
-    pais:   document.getElementById('cfgPaisC')?.value  || '',
-    seg0:   document.getElementById('seg0nameC')?.value || 'Top',
-    seg1:   document.getElementById('seg1nameC')?.value || 'Medio',
-    seg2:   document.getElementById('seg2nameC')?.value || 'En desarrollo',
-  };
-  // Hide save bar
-  const bar = document.getElementById('cfgSaveBar');
-  if(bar) bar.style.display = 'none';
-  // Apply everywhere
-  renderMetas(); calc();
-  if(document.getElementById('page-resumen')?.classList.contains('on')) renderResumen();
+  cfgDirty=false;
+  cfgSnapshot={nombre:document.getElementById('cfgNameC')?.value||'',org:document.getElementById('cfgOrgC')?.value||'',moneda:document.getElementById('cfgMonedaC')?.value||'CLP',pais:document.getElementById('cfgPaisC')?.value||'',seg0:document.getElementById('seg0nameC')?.value||'Top',seg1:document.getElementById('seg1nameC')?.value||'Medio',seg2:document.getElementById('seg2nameC')?.value||'En desarrollo'};
+  const bar=document.getElementById('cfgSaveBar');
+  if(bar)bar.style.display='none';
+  renderMetas();calc();
+  if(document.getElementById('page-resumen')?.classList.contains('on'))renderResumen();
   showToast('✓ Configuración guardada');
 }
 
 function discardCfg(){
-  if(Object.keys(cfgSnapshot).length === 0) {
-    // No previous save — just reset to defaults
-    const el = id => document.getElementById(id);
-    if(el('cfgNameC'))  el('cfgNameC').value  = 'Programa de Incentivos 2025';
-    if(el('cfgOrgC'))   el('cfgOrgC').value   = '';
-    if(el('cfgMonedaC'))el('cfgMonedaC').value = 'ARS';
-    if(el('cfgPaisC'))  el('cfgPaisC').value  = '';
-    if(el('seg0nameC')) el('seg0nameC').value  = 'Top';
-    if(el('seg1nameC')) el('seg1nameC').value  = 'Medio';
-    if(el('seg2nameC')) el('seg2nameC').value  = 'En desarrollo';
-  } else {
-    const el = id => document.getElementById(id);
-    if(el('cfgNameC'))  el('cfgNameC').value  = cfgSnapshot.nombre;
-    if(el('cfgOrgC'))   el('cfgOrgC').value   = cfgSnapshot.org;
-    if(el('cfgMonedaC'))el('cfgMonedaC').value = cfgSnapshot.moneda;
-    if(el('cfgPaisC'))  el('cfgPaisC').value  = cfgSnapshot.pais;
-    if(el('seg0nameC')) el('seg0nameC').value  = cfgSnapshot.seg0;
-    if(el('seg1nameC')) el('seg1nameC').value  = cfgSnapshot.seg1;
-    if(el('seg2nameC')) el('seg2nameC').value  = cfgSnapshot.seg2;
+  if(Object.keys(cfgSnapshot).length===0){
+    const el=id=>document.getElementById(id);
+    if(el('cfgNameC'))el('cfgNameC').value='Programa de Incentivos 2025';
+    if(el('cfgOrgC'))el('cfgOrgC').value='';
+    if(el('cfgMonedaC'))el('cfgMonedaC').value='ARS';
+    if(el('cfgPaisC'))el('cfgPaisC').value='';
+    if(el('seg0nameC'))el('seg0nameC').value='Top';
+    if(el('seg1nameC'))el('seg1nameC').value='Medio';
+    if(el('seg2nameC'))el('seg2nameC').value='En desarrollo';
+  }else{
+    const el=id=>document.getElementById(id);
+    if(el('cfgNameC'))el('cfgNameC').value=cfgSnapshot.nombre;
+    if(el('cfgOrgC'))el('cfgOrgC').value=cfgSnapshot.org;
+    if(el('cfgMonedaC'))el('cfgMonedaC').value=cfgSnapshot.moneda;
+    if(el('cfgPaisC'))el('cfgPaisC').value=cfgSnapshot.pais;
+    if(el('seg0nameC'))el('seg0nameC').value=cfgSnapshot.seg0;
+    if(el('seg1nameC'))el('seg1nameC').value=cfgSnapshot.seg1;
+    if(el('seg2nameC'))el('seg2nameC').value=cfgSnapshot.seg2;
   }
-  cfgDirty = false;
-  const bar = document.getElementById('cfgSaveBar');
-  if(bar) bar.style.display = 'none';
+  cfgDirty=false;
+  const bar=document.getElementById('cfgSaveBar');
+  if(bar)bar.style.display='none';
   updateCfgPreview();
-  renderMetas(); calc();
+  renderMetas();calc();
 }
-
-function updateConfigLabel(){ /* kept for compatibility */ }
-function applySegNames(){ /* kept for compatibility */ }
 
 function getSegs(){
   const t=getTotal();
-  if(currentMode==='dicotomico'){
-    const pct=parseFloat(document.getElementById('pTopD')?.value)||20;
-    const top=Math.round(t*pct/100);return[top,0,t-top];
-  } else if(currentMode==='umbral'){
-    const uPct=parseFloat(document.getElementById('pUmbral')?.value)||50;
-    const tPct=parseFloat(document.getElementById('pTopU')?.value)||30;
-    const q=Math.round(t*uPct/100);const top=Math.round(q*tPct/100);return[top,q-top,0];
-  } else {
-    const tP=parseFloat(document.getElementById('pTop')?.value)||20;
-    const mP=parseFloat(document.getElementById('pMid')?.value)||50;
-    const top=Math.round(t*tP/100);const mid=Math.round(t*mP/100);return[top,mid,Math.max(0,t-top-mid)];
-  }
+  if(currentMode==='dicotomico'){const pct=parseFloat(document.getElementById('pTopD')?.value)||20;const top=Math.round(t*pct/100);return[top,0,t-top];}
+  else if(currentMode==='umbral'){const uPct=parseFloat(document.getElementById('pUmbral')?.value)||50;const tPct=parseFloat(document.getElementById('pTopU')?.value)||30;const q=Math.round(t*uPct/100);const top=Math.round(q*tPct/100);return[top,q-top,0];}
+  else{const tP=parseFloat(document.getElementById('pTop')?.value)||20;const mP=parseFloat(document.getElementById('pMid')?.value)||50;const top=Math.round(t*tP/100);const mid=Math.round(t*mP/100);return[top,mid,Math.max(0,t-top-mid)];}
 }
 
 function showPage(id){
@@ -789,37 +785,33 @@ function showPage(id){
   document.getElementById('page-'+id)?.classList.add('on');
   window.scrollTo(0,0);
   const idx={calc:0,escenarios:1,resumen:2,config:3}[id];
-  if(idx!==undefined) document.querySelectorAll('.nav-tab')[idx]?.classList.add('on');
-  if(id==='escenarios') renderScenarios();
-  if(id==='resumen') renderResumen();
+  if(idx!==undefined)document.querySelectorAll('.nav-tab')[idx]?.classList.add('on');
+  if(id==='escenarios')renderScenarios();
+  if(id==='resumen')renderResumen();
 }
 
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
 
-// MODE
 function setMode(mode){
   currentMode=mode;
   document.querySelectorAll('.mode-tab[id^="modeBtn-"]').forEach(b=>b.classList.remove('on'));
   document.getElementById('modeBtn-'+mode)?.classList.add('on');
   renderModeInputs();renderMetas();calc();
-  if(typeof updateCfgPreview==="function")updateCfgPreview();
+  if(typeof updateCfgPreview==='function')updateCfgPreview();
 }
 
 function renderModeInputs(){
   document.getElementById('modeDesc').textContent=MODES[currentMode].desc;
   const c=document.getElementById('modeInputs');
   if(currentMode==='segmentado'){
-    c.innerHTML=`
-      <label>% Top</label><div class="row"><input type="range" id="pTop" min="5" max="50" step="5" value="20" oninput="document.getElementById('pTopV').textContent=this.value+'%';calc()"><span class="rval" id="pTopV">20%</span></div>
+    c.innerHTML=`<label>% Top</label><div class="row"><input type="range" id="pTop" min="5" max="50" step="5" value="20" oninput="document.getElementById('pTopV').textContent=this.value+'%';calc()"><span class="rval" id="pTopV">20%</span></div>
       <label>% Medio</label><div class="row"><input type="range" id="pMid" min="10" max="70" step="5" value="50" oninput="document.getElementById('pMidV').textContent=this.value+'%';calc()"><span class="rval" id="pMidV">50%</span></div>
       <div style="font-size:11px;color:var(--muted)">🟡 En desarrollo: <strong id="pDevV">30%</strong></div>`;
-  } else if(currentMode==='dicotomico'){
-    c.innerHTML=`
-      <label>% que alcanza la meta</label><div class="row"><input type="range" id="pTopD" min="5" max="70" step="5" value="20" oninput="document.getElementById('pTopDV').textContent=this.value+'%';calc()"><span class="rval" id="pTopDV">20%</span></div>
+  }else if(currentMode==='dicotomico'){
+    c.innerHTML=`<label>% que alcanza la meta</label><div class="row"><input type="range" id="pTopD" min="5" max="70" step="5" value="20" oninput="document.getElementById('pTopDV').textContent=this.value+'%';calc()"><span class="rval" id="pTopDV">20%</span></div>
       <div style="background:var(--amber-bg);border:1px solid #fde68a;border-radius:7px;padding:8px;font-size:11px;color:var(--amber-text);font-weight:600">Solo quienes alcanzan la meta acumulan puntos.</div>`;
-  } else {
-    c.innerHTML=`
-      <label>% que supera el umbral</label><div class="row"><input type="range" id="pUmbral" min="10" max="90" step="5" value="50" oninput="document.getElementById('pUmbralV').textContent=this.value+'%';calc()"><span class="rval" id="pUmbralV">50%</span></div>
+  }else{
+    c.innerHTML=`<label>% que supera el umbral</label><div class="row"><input type="range" id="pUmbral" min="10" max="90" step="5" value="50" oninput="document.getElementById('pUmbralV').textContent=this.value+'%';calc()"><span class="rval" id="pUmbralV">50%</span></div>
       <label>De los calificados: % en Top</label><div class="row"><input type="range" id="pTopU" min="10" max="60" step="5" value="30" oninput="document.getElementById('pTopUV').textContent=this.value+'%';calc()"><span class="rval" id="pTopUV">30%</span></div>`;
   }
 }
@@ -829,7 +821,13 @@ function initAreaTabs(containerId,onSelect){
   AREAS.forEach(a=>{
     const btn=document.createElement('button');
     btn.className='area-tab'+(a.id===currentArea?' on':'');btn.textContent=a.label;
-    btn.onclick=()=>{currentArea=a.id;c.querySelectorAll('.area-tab').forEach(b=>b.classList.remove('on'));btn.classList.add('on');if(loadedStage){loadedStage=null;selectedStage=null;const ab=document.getElementById('stageApplyBtn');if(ab){ab.disabled=true;ab.textContent='Cargar en calculadora →';}const lb=document.getElementById('stageLoadedBadge');if(lb)lb.style.display='none';const rb=document.getElementById('stageResetBtn');if(rb)rb.style.display='none';const sl=document.getElementById('stageLabelValue');if(sl)sl.textContent='Sin seleccionar';const mn=document.getElementById('metasModifiedNote');if(mn)mn.style.display='none';['onboarding','growth','alto'].forEach(s=>{const card=document.getElementById('stageCard-'+s);if(!card)return;card.classList.remove('active');const b=card.querySelector('.sc-badge');if(b)b.remove();});}onSelect();};
+    btn.onclick=()=>{
+      currentArea=a.id;
+      c.querySelectorAll('.area-tab').forEach(b=>b.classList.remove('on'));
+      btn.classList.add('on');
+      if(loadedStage){loadedStage=null;selectedStage=null;const ab=document.getElementById('stageApplyBtn');if(ab){ab.disabled=true;ab.textContent='Cargar en calculadora →';}const lb=document.getElementById('stageLoadedBadge');if(lb)lb.style.display='none';const rb=document.getElementById('stageResetBtn');if(rb)rb.style.display='none';const sl=document.getElementById('stageLabelValue');if(sl)sl.textContent='Sin seleccionar';const mn=document.getElementById('metasModifiedNote');if(mn)mn.style.display='none';['onboarding','growth','alto'].forEach(s=>{const card=document.getElementById('stageCard-'+s);if(!card)return;card.classList.remove('active');const b=card.querySelector('.sc-badge');if(b)b.remove();});}
+      onSelect();
+    };
     c.appendChild(btn);
   });
 }
@@ -840,13 +838,13 @@ function renderSegCounts(){
   if(currentMode==='dicotomico'){
     html=`<div class="sc-row"><div class="sc-dot" style="background:var(--seg0)"></div><span style="font-size:12px;flex:1">${names[0]} — calificados</span><strong>${fmt(top)}</strong></div>
     <div class="sc-row"><div class="sc-dot" style="background:#e5e7eb"></div><span style="font-size:12px;flex:1">Sin calificar</span><strong>${fmt(dev)}</strong></div>`;
-  } else if(currentMode==='umbral'){
+  }else if(currentMode==='umbral'){
     html=`<div class="sc-row"><div class="sc-dot" style="background:var(--seg0)"></div><span style="font-size:12px;flex:1">${names[0]}</span><strong>${fmt(top)}</strong></div>
     <div class="sc-row"><div class="sc-dot" style="background:var(--seg1)"></div><span style="font-size:12px;flex:1">${names[1]}</span><strong>${fmt(mid)}</strong></div>
     <div class="sc-row"><div class="sc-dot" style="background:#e5e7eb"></div><span style="font-size:12px;flex:1">Bajo umbral</span><strong>${fmt(t-top-mid)}</strong></div>`;
-  } else {
+  }else{
     const devPct=Math.max(0,100-parseFloat(document.getElementById('pTop')?.value||20)-parseFloat(document.getElementById('pMid')?.value||50));
-    if(document.getElementById('pDevV')) document.getElementById('pDevV').textContent=devPct+'%';
+    if(document.getElementById('pDevV'))document.getElementById('pDevV').textContent=devPct+'%';
     html=`<div class="sc-row"><div class="sc-dot" style="background:var(--seg0)"></div><span style="font-size:12px;flex:1">${names[0]}</span><strong>${fmt(top)}</strong></div>
     <div class="sc-row"><div class="sc-dot" style="background:var(--seg1)"></div><span style="font-size:12px;flex:1">${names[1]}</span><strong>${fmt(mid)}</strong></div>
     <div class="sc-row"><div class="sc-dot" style="background:var(--seg2)"></div><span style="font-size:12px;flex:1">${names[2]}</span><strong>${fmt(dev)}</strong></div>`;
@@ -859,9 +857,9 @@ function renderSegCounts(){
 
 function getModeInfo(){
   const M={
-    segmentado:{icon:'🎯',title:'Modelo por segmentos',desc:'Cada meta premia 3 grupos: Top, Medio y En desarrollo — con puntos distintos para cada uno.',segsLabel:'3 segmentos activos',color:'segmentado'},
-    dicotomico:{icon:'⚡',title:'Modelo dicotómico',desc:'Solo quien cumple la meta gana puntos. Sin rangos intermedios — todo o nada.',segsLabel:'Solo calificados',color:'dicotomico'},
-    umbral:{icon:'📊',title:'Modelo por umbral mínimo',desc:'Solo quienes superan el umbral puntúan. Entre ellos se distingue Top y Medio.',segsLabel:'2 segmentos activos',color:'umbral'},
+    segmentado:{icon:'🎯',title:'Modelo por segmentos',desc:'Cada meta premia 3 grupos: Top, Medio y En desarrollo — con puntos distintos para cada uno.',color:'segmentado'},
+    dicotomico:{icon:'⚡',title:'Modelo dicotómico',desc:'Solo quien cumple la meta gana puntos. Sin rangos intermedios — todo o nada.',color:'dicotomico'},
+    umbral:{icon:'📊',title:'Modelo por umbral mínimo',desc:'Solo quienes superan el umbral puntúan. Entre ellos se distingue Top y Medio.',color:'umbral'},
   };
   return M[currentMode]||M.segmentado;
 }
@@ -869,9 +867,7 @@ function getModeInfo(){
 function renderMetas(){
   const metas=areaData[currentArea].metas;
   const names=getSegNames();
-  if(document.getElementById('areaLabelCalc')) document.getElementById('areaLabelCalc').textContent=AREAS.find(a=>a.id===currentArea)?.label||'';
-
-  // Mode banner
+  if(document.getElementById('areaLabelCalc'))document.getElementById('areaLabelCalc').textContent=AREAS.find(a=>a.id===currentArea)?.label||'';
   const mi2=getModeInfo();
   const banner=document.getElementById('modeBanner');
   if(banner){
@@ -892,114 +888,69 @@ function renderMetas(){
       <div class="mb-segs">${segPills[currentMode]||''}</div>
     </div>`;
   }
-
   const container=document.getElementById('metasContainer');
   container.innerHTML='';
-
-  const disabledHint={
-    segmentado:'Activar para ver los segmentos y sus puntos',
-    dicotomico:'Activar para definir los puntos del grupo que califica',
-    umbral:'Activar para ver los segmentos sobre el umbral',
-  };
-
-  // Build all HTML as one string and inject, then attach listeners by ID
-  const META_COLORS_LOCAL=['#FA345E','#065F46','#f59e0b','#8b5cf6','#06b6d4','#ec4899','#ef4444','#3b82f6'];
-  let containerHTML = '';
+  const disabledHint={segmentado:'Activar para ver los segmentos y sus puntos',dicotomico:'Activar para definir los puntos del grupo que califica',umbral:'Activar para ver los segmentos sobre el umbral'};
+  let containerHTML='';
   metas.forEach((meta,mi)=>{
     const color=META_COLORS[mi%META_COLORS.length];
-    const isOn = meta.on;
-    const bodyHTML = isOn
-      ? renderMetaBody(meta,names)
-      : `<div class="meta-disabled-mode">💤 ${disabledHint[currentMode]||'Desactivada'}</div>`;
-    const divider = mi < metas.length-1 ? '<div class="divider"></div>' : '';
-    containerHTML += `
-      <div class="meta-block">
-        <div class="meta-header">
-          <div class="meta-title">
-            <span class="dot" style="background:${color}"></span>
-            ${meta.label}${meta.flujo?'<span class="flujo-badge">💰 flujo</span>':''}
-          </div>
-          <label class="tog">
-            <input type="checkbox" id="tog_${meta.id}" ${isOn?'checked':''}>
-            <span class="tslider"></span>
-          </label>
-        </div>
-        <div id="mbody_${meta.id}">${bodyHTML}</div>
-        ${divider}
-      </div>`;
+    const isOn=meta.on;
+    const bodyHTML=isOn?renderMetaBody(meta,names):`<div class="meta-disabled-mode">💤 ${disabledHint[currentMode]||'Desactivada'}</div>`;
+    const divider=mi<metas.length-1?'<div class="divider"></div>':'';
+    containerHTML+=`<div class="meta-block">
+      <div class="meta-header">
+        <div class="meta-title"><span class="dot" style="background:${color}"></span>${meta.label}${meta.flujo?'<span class="flujo-badge">💰 flujo</span>':''}</div>
+        <label class="tog"><input type="checkbox" id="tog_${meta.id}" ${isOn?'checked':''}><span class="tslider"></span></label>
+      </div>
+      <div id="mbody_${meta.id}">${bodyHTML}</div>${divider}</div>`;
   });
-  container.innerHTML = containerHTML;
-
-  // Attach toggle listeners AFTER innerHTML is set (elements exist in DOM)
+  container.innerHTML=containerHTML;
   metas.forEach((meta)=>{
-    const tog = document.getElementById('tog_'+meta.id);
-    if(!tog) return;
-    tog.addEventListener('change', function(){
-      meta.on = this.checked;
-      const body = document.getElementById('mbody_'+meta.id);
-      if(body) body.innerHTML = meta.on
-        ? renderMetaBody(meta, getSegNames())
-        : `<div class="meta-disabled-mode">💤 ${disabledHint[currentMode]||'Desactivada'}</div>`;
-      calc();
-      if(typeof saveSession==='function') saveSession();
+    const tog=document.getElementById('tog_'+meta.id);
+    if(!tog)return;
+    tog.addEventListener('change',function(){
+      meta.on=this.checked;
+      const body=document.getElementById('mbody_'+meta.id);
+      if(body)body.innerHTML=meta.on?renderMetaBody(meta,getSegNames()):`<div class="meta-disabled-mode">💤 ${disabledHint[currentMode]||'Desactivada'}</div>`;
+      calc();if(typeof saveSession==='function')saveSession();
     });
   });
 }
 
 function renderMetaBody(meta,names){
   const total=getTotal();
-  // ── Toggle: Igualitaria / Por segmento ──────────────────────────────────
-  const isIgual = meta.igual === true;
-  const typeToggle = `<div class="seg-type-toggle">
+  const isIgual=meta.igual===true;
+  const typeToggle=`<div class="seg-type-toggle">
     <button class="seg-type-btn ${isIgual?'active':''}" onclick="toggleMetaTipo('${meta.id}',true)">👥 Todos igual</button>
     <button class="seg-type-btn ${!isIgual?'active':''}" onclick="toggleMetaTipo('${meta.id}',false)">📊 Por segmento</button>
   </div>`;
-
-  // ── IGUALITARIA: un solo campo, toda la dotación ─────────────────────────
   if(isIgual){
-    const pts = meta.segs[0]?.pts||500;
-    return`${typeToggle}<div class="igual-block">
-      <div class="igual-input-wrap">
-        <input class="igual-pts-input" type="number" id="pts_${meta.id}_all"
-          value="${pts}" min="0" step="100"
-          onchange="(function(){const v=parseInt(this.value)||0;const m=areaData[currentArea].metas.find(m=>m.id==='${meta.id}');if(m)m.segs.forEach(s=>s.pts=v);calc();saveSession();}).call(this)">
-        <div class="igual-result">
-          <strong>pts por persona</strong><br>
-          Todos los que completan la acción ganan lo mismo<br>
-          <span style="color:var(--primary);font-weight:700">${fmt(pts*total)} pts</span>
-          <span style="color:var(--muted)"> si los ${fmt(total)} participan</span>
-        </div>
-      </div>
-    </div>`;
+    const pts=meta.segs[0]?.pts||500;
+    return`${typeToggle}<div class="igual-block"><div class="igual-input-wrap">
+      <input class="igual-pts-input" type="number" id="pts_${meta.id}_all" value="${pts}" min="0" step="100"
+        onchange="(function(){const v=parseInt(this.value)||0;const m=areaData[currentArea].metas.find(m=>m.id==='${meta.id}');if(m)m.segs.forEach(s=>s.pts=v);calc();saveSession();}).call(this)">
+      <div class="igual-result"><strong>pts por persona</strong><br>Todos los que completan la acción ganan lo mismo<br>
+        <span style="color:var(--primary);font-weight:700">${fmt(pts*total)} pts</span>
+        <span style="color:var(--muted)"> si los ${fmt(total)} participan</span></div>
+    </div></div>`;
   }
-
-  // ── POR SEGMENTO ─────────────────────────────────────────────────────────
   if(currentMode==='dicotomico'){
     return`${typeToggle}<div class="seg-inputs" style="grid-template-columns:1fr 1fr">
-      <div class="seg-block">
-        <div class="sb-badge" style="color:${SEG_COLORS[0]}">● ${names[0]} — califica</div>
-        <div class="sb-name">${meta.segs[0].name}</div>
-        <label>Puntos al calificar</label>
-        <input type="number" id="pts_${meta.id}_0" value="${meta.segs[0].pts}" min="0" step="500" onchange="areaData[currentArea].metas.find(m=>m.id==='${meta.id}').segs[0].pts=parseInt(this.value)||0;calc();saveSession()">
-        ${meta.segs[0].ref?`<div class="sb-ref">${meta.segs[0].ref}</div>`:''}
-      </div>
-      <div class="seg-block" style="opacity:.45">
-        <div class="sb-badge" style="color:#999">● No califica</div>
-        <div class="sb-name" style="color:#aaa">0 puntos este período</div>
-        <input type="number" value="0" disabled>
-      </div></div>`;
+      <div class="seg-block"><div class="sb-badge" style="color:${SEG_COLORS[0]}">● ${names[0]} — califica</div>
+      <div class="sb-name">${meta.segs[0].name}</div><label>Puntos al calificar</label>
+      <input type="number" id="pts_${meta.id}_0" value="${meta.segs[0].pts}" min="0" step="500" onchange="areaData[currentArea].metas.find(m=>m.id==='${meta.id}').segs[0].pts=parseInt(this.value)||0;calc();saveSession()">
+      ${meta.segs[0].ref?`<div class="sb-ref">${meta.segs[0].ref}</div>`:''}</div>
+      <div class="seg-block" style="opacity:.45"><div class="sb-badge" style="color:#999">● No califica</div>
+      <div class="sb-name" style="color:#aaa">0 puntos este período</div><input type="number" value="0" disabled></div></div>`;
   }
   const showSegs=currentMode==='umbral'?[0,1]:[0,1,2];
   const cols=currentMode==='umbral'?'1fr 1fr':'1fr 1fr 1fr';
   return`${typeToggle}<div class="seg-inputs" style="grid-template-columns:${cols}">${showSegs.map(si=>`
-    <div class="seg-block">
-      <div class="sb-badge" style="color:${SEG_COLORS[si]}">● ${names[si]}</div>
-      <div class="sb-name">${meta.segs[si]?.name||''}</div>
-      <label>Puntos</label>
-      <input type="number" id="pts_${meta.id}_${si}" value="${meta.segs[si]?.pts||0}" min="0" step="500"
-        onchange="areaData[currentArea].metas.find(m=>m.id==='${meta.id}').segs[${si}].pts=parseInt(this.value)||0;calc();saveSession()">
-      ${meta.segs[si]?.ref?`<div class="sb-ref">${meta.segs[si].ref}</div>`:''}
-    </div>`).join('')}</div>`;
+    <div class="seg-block"><div class="sb-badge" style="color:${SEG_COLORS[si]}">● ${names[si]}</div>
+    <div class="sb-name">${meta.segs[si]?.name||''}</div><label>Puntos</label>
+    <input type="number" id="pts_${meta.id}_${si}" value="${meta.segs[si]?.pts||0}" min="0" step="500"
+      onchange="areaData[currentArea].metas.find(m=>m.id==='${meta.id}').segs[${si}].pts=parseInt(this.value)||0;calc();saveSession()">
+    ${meta.segs[si]?.ref?`<div class="sb-ref">${meta.segs[si].ref}</div>`:''}</div>`).join('')}</div>`;
 }
 
 function calc(){
@@ -1014,7 +965,7 @@ function calc(){
     if(meta.igual){
       var ptsEl=document.getElementById('pts_'+meta.id+'_all');var pts=ptsEl?parseInt(ptsEl.value)||0:(meta.segs[0]?meta.segs[0].pts||0:0);
       const c=pts*total;mt+=c;segTotals[0]+=c;
-    } else {
+    }else{
       const activeSi=currentMode==='dicotomico'?[0]:currentMode==='umbral'?[0,1]:[0,1,2];
       activeSi.forEach(si=>{const pts=parseInt(document.getElementById(`pts_${meta.id}_${si}`)?.value)||meta.segs[si]?.pts||0;const c=pts*segs[si];mt+=c;segTotals[si]+=c;});
     }
@@ -1057,7 +1008,6 @@ function calc(){
     }).join('')}</tbody></table>`;
 }
 
-// ESCENARIOS
 function renderScenarios(){
   initAreaTabs('areaTabsEsc',()=>{renderScenRows();});
   const c=document.getElementById('scenTypeTabs');c.innerHTML='';
@@ -1076,7 +1026,7 @@ function renderScenRows(){
   const rows=areaData[currentArea].scenarios?.[currentScenType]||[];
   const names=getSegNames();const[top,mid,dev]=getSegs();
   const legend=document.getElementById('scenLegend');
-  if(legend) legend.innerHTML=names.map((n,i)=>`<span style="font-size:11px;display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:50%;background:${SEG_COLORS[i]};display:inline-block"></span>${n}</span>`).join('');
+  if(legend)legend.innerHTML=names.map((n,i)=>`<span style="font-size:11px;display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:50%;background:${SEG_COLORS[i]};display:inline-block"></span>${n}</span>`).join('');
   const container=document.getElementById('scenRows');
   container.innerHTML=rows.map((r,ri)=>`
     <div class="sc-row" style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 14px;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:8px">
@@ -1115,12 +1065,10 @@ function calcScen(){
     <div class="met-v">${fmt(cnt>0?segT[si]/cnt:0)} pts</div><div class="met-s">promedio/persona</div></div>`).join('');
 }
 
-// RESUMEN
 function renderResumen(){
   const today=new Date().toLocaleDateString('es-CL',{year:'numeric',month:'long',day:'numeric'});
   const cfg=getCfg();
-  const prog=cfg.nombre;const org=cfg.org;
-  document.getElementById('rMeta').textContent=`${prog?prog+' · ':''}${org?org+' · ':''}${AREAS.find(a=>a.id===currentArea)?.label} · ${today}`;
+  document.getElementById('rMeta').textContent=`${cfg.nombre?cfg.nombre+' · ':''}${cfg.org?cfg.org+' · ':''}${AREAS.find(a=>a.id===currentArea)?.label} · ${today}`;
   const[top,mid,dev]=getSegs();const segs=[top,mid,dev];const names=getSegNames();
   const metas=areaData[currentArea].metas.filter(m=>m.on);
   let grand=0;
@@ -1138,27 +1086,21 @@ function renderResumen(){
   const mobUp=parseInt(document.getElementById('sUp')?.value||5);
   const mobDown=parseInt(document.getElementById('sDown')?.value||5);
   document.getElementById('resumenContent').innerHTML=`
-    <div class="hero-sum">
-      <div class="hs-inner">
-        <div><div class="hs-label">${prog||'Total mensual estimado'} · ${AREAS.find(a=>a.id===currentArea)?.label}</div><div class="hs-num">${fmt(grand)} pts</div></div>
-        <div class="hs-right"><div style="font-size:11px;opacity:.7;font-weight:600;margin-bottom:2px">RANGO MENSUAL (±movilidad)</div><div style="font-size:16px;font-weight:700">${fmt(Math.round(grand*(1-mobDown/100)))} – ${fmt(Math.round(grand*(1+mobUp/100)))} pts</div></div>
-      </div>
-    </div>
-    <div class="sum-section">
-      <div class="sum-head"><div class="sh-title">Detalle por meta</div><div class="sh-val">${fmt(grand)} pts</div></div>
+    <div class="hero-sum"><div class="hs-inner">
+      <div><div class="hs-label">${cfg.nombre||'Total mensual estimado'} · ${AREAS.find(a=>a.id===currentArea)?.label}</div><div class="hs-num">${fmt(grand)} pts</div></div>
+      <div class="hs-right"><div style="font-size:11px;opacity:.7;font-weight:600;margin-bottom:2px">RANGO MENSUAL</div><div style="font-size:16px;font-weight:700">${fmt(Math.round(grand*(1-mobDown/100)))} – ${fmt(Math.round(grand*(1+mobUp/100)))} pts</div></div>
+    </div></div>
+    <div class="sum-section"><div class="sum-head"><div class="sh-title">Detalle por meta</div><div class="sh-val">${fmt(grand)} pts</div></div>
       ${rows.map(r=>`<div class="sum-row"><div class="sum-label">${r.label}${r.flujo?'<span class="flujo-badge">💰 flujo</span>':''}</div><div class="sum-segs">${r.segBreak}</div><div class="sum-total">${fmt(r.total)} pts</div></div>`).join('')}
     </div>
-    <div class="sum-section">
-      <div class="sum-head"><div class="sh-title">Distribución por segmento</div><div class="sh-val">${fmt(grand)} pts</div></div>
+    <div class="sum-section"><div class="sum-head"><div class="sh-title">Por segmento</div><div class="sh-val">${fmt(grand)} pts</div></div>
       ${activeSiList.map(si=>`<div class="sum-row"><div class="sum-label"><span class="dot" style="background:${SEG_COLORS[si]};display:inline-block;margin-right:6px"></span>${names[si]} · ${fmt(segs[si])} personas</div><div style="font-size:13px;color:var(--muted)">${fmt(segs[si]>0?segTotals[si]/segs[si]:0)} pts/persona</div><div class="sum-total">${fmt(segTotals[si])} pts</div></div>`).join('')}
     </div>
-    <div class="sum-section">
-      <div class="sum-head"><div class="sh-title">Proyección temporal</div></div>
-      ${[1,3,6,12].map(m=>`<div class="sum-row"><div class="sum-label">${m===12?'<strong>12 meses (anual)</strong>':`${m} ${m===1?'mes':'meses'}`}</div><div style="font-size:11px;color:var(--muted)">${fmt(Math.round(grand*m*(1-mobDown/100)))} – ${fmt(Math.round(grand*m*(1+mobUp/100)))} pts</div><div class="sum-total ${m===12?'':''}"><strong>${fmt(grand*m)} pts</strong></div></div>`).join('')}
+    <div class="sum-section"><div class="sum-head"><div class="sh-title">Proyección temporal</div></div>
+      ${[1,3,6,12].map(m=>`<div class="sum-row"><div class="sum-label">${m===12?'<strong>12 meses (anual)</strong>':`${m} ${m===1?'mes':'meses'}`}</div><div style="font-size:11px;color:var(--muted)">${fmt(Math.round(grand*m*(1-mobDown/100)))} – ${fmt(Math.round(grand*m*(1+mobUp/100)))} pts</div><div class="sum-total"><strong>${fmt(grand*m)} pts</strong></div></div>`).join('')}
     </div>`;
 }
 
-// CSV
 function exportCSV(){
   const[top,mid,dev]=getSegs();const segs=[top,mid,dev];
   const names=getSegNames();const area=AREAS.find(a=>a.id===currentArea)?.label||currentArea;
@@ -1167,7 +1109,6 @@ function exportCSV(){
   const mobUp=parseInt(document.getElementById('sUp')?.value||5);
   const mobDown=parseInt(document.getElementById('sDown')?.value||5);
   const activeSi=currentMode==='dicotomico'?[0]:currentMode==='umbral'?[0,1]:[0,1,2];
-
   const cfg=getCfg();
   let rows=[];
   rows.push(['=== CALCULADORA DE INCENTIVOS — APPRECIO ===','','','','','']);
@@ -1175,32 +1116,26 @@ function exportCSV(){
   rows.push(['Área',area,'Moneda',cfg.moneda,'Modo',MODES[currentMode]?.label||currentMode]);
   rows.push(['Fecha',today,'','','','']);
   rows.push(['','','','','','']);
-
   rows.push(['=== EQUIPO ===','','','','','']);
   rows.push(['Total de colaboradores',getTotal(),'','','','']);
   if(currentMode==='segmentado'){
-    rows.push(['Segmento','Cantidad','% del total','','','']);
     rows.push([names[0],top,((top/getTotal())*100).toFixed(1)+'%','','','']);
     rows.push([names[1],mid,((mid/getTotal())*100).toFixed(1)+'%','','','']);
     rows.push([names[2],dev,((dev/getTotal())*100).toFixed(1)+'%','','','']);
-  } else if(currentMode==='dicotomico'){
+  }else if(currentMode==='dicotomico'){
     rows.push(['Calificados',top,((top/getTotal())*100).toFixed(1)+'%','','','']);
     rows.push(['Sin calificar',dev,((dev/getTotal())*100).toFixed(1)+'%','','','']);
-  } else {
+  }else{
     rows.push([names[0],top,((top/getTotal())*100).toFixed(1)+'%','','','']);
     rows.push([names[1],mid,((mid/getTotal())*100).toFixed(1)+'%','','','']);
     rows.push(['Bajo umbral',getTotal()-top-mid,'','','','']);
   }
-  rows.push(['Movilidad mensual hacia arriba',mobUp+'%','','','','']);
-  rows.push(['Movilidad mensual hacia abajo',mobDown+'%','','','','']);
   rows.push(['','','','','','']);
-
   rows.push(['=== METAS ACTIVAS ===','','','','','']);
   const header=['Meta'];
   activeSi.forEach(si=>{header.push(`${names[si]} — personas`,`${names[si]} — pts/persona`,`${names[si]} — total pts`);});
   header.push('TOTAL META (pts)');
   rows.push(header);
-
   let grandTotal=0;
   metas.forEach(meta=>{
     const row=[meta.label+(meta.flujo?' (basado en flujo)':'')];
@@ -1213,69 +1148,31 @@ function exportCSV(){
     row.push(metaTotal);grandTotal+=metaTotal;rows.push(row);
   });
   rows.push(['TOTAL MENSUAL',...activeSi.map(()=>['','','']).flat(),grandTotal]);
-  rows.push(['RANGO MÍNIMO (con movilidad hacia abajo)',...activeSi.map(()=>['','','']).flat(),Math.round(grandTotal*(1-mobDown/100))]);
-  rows.push(['RANGO MÁXIMO (con movilidad hacia arriba)',...activeSi.map(()=>['','','']).flat(),Math.round(grandTotal*(1+mobUp/100))]);
+  rows.push(['RANGO MÍNIMO',...activeSi.map(()=>['','','']).flat(),Math.round(grandTotal*(1-mobDown/100))]);
+  rows.push(['RANGO MÁXIMO',...activeSi.map(()=>['','','']).flat(),Math.round(grandTotal*(1+mobUp/100))]);
   rows.push(['','','','','','']);
-
   rows.push(['=== PROYECCIÓN ===','','','','','']);
   rows.push(['Período','Puntos estimados','Rango mínimo (pts)','Rango máximo (pts)','','']);
-  [1,3,6,12].forEach(m=>{
-    rows.push([`${m} ${m===1?'mes':'meses'}`,grandTotal*m,Math.round(grandTotal*m*(1-mobDown/100)),Math.round(grandTotal*m*(1+mobUp/100)),'','']);
-  });
-  rows.push(['','','','','','']);
-
-  rows.push(['=== SIMULACIÓN POR TAMAÑO DE EQUIPO ===','','','','','']);
-  const simHeader=['Dotación',...activeSi.map(si=>names[si]),'Total pts/mes','Pts/persona','Rango pts/mes'];
-  rows.push(simHeader);
-  [50,100,200,500,1000,2000].forEach(sz=>{
-    let sT,sM,sD;
-    if(currentMode==='dicotomico'){const p=parseFloat(document.getElementById('pTopD')?.value||20);sT=Math.round(sz*p/100);sM=0;sD=sz-sT;}
-    else if(currentMode==='umbral'){const u=parseFloat(document.getElementById('pUmbral')?.value||50);const t=parseFloat(document.getElementById('pTopU')?.value||30);const q=Math.round(sz*u/100);sT=Math.round(q*t/100);sM=q-sT;sD=0;}
-    else{const t=parseFloat(document.getElementById('pTop')?.value||20);const m=parseFloat(document.getElementById('pMid')?.value||50);sT=Math.round(sz*t/100);sM=Math.round(sz*m/100);sD=sz-sT-sM;}
-    const est=getTotal()>0?Math.round(grandTotal/getTotal()*sz):0;
-    const simSegs=currentMode==='dicotomico'?[sT]:currentMode==='umbral'?[sT,sM]:[sT,sM,sD];
-    rows.push([sz,...simSegs,est,sz>0?Math.round(est/sz):0,`${Math.round(est*(1-mobDown/100))} – ${Math.round(est*(1+mobUp/100))}`]);
-  });
-  rows.push(['','','','','','']);
-
-  rows.push(['=== ESCENARIOS ===','','','','','']);
-  Object.entries(SCENARIO_TYPES).forEach(([key,st])=>{
-    const scenRows=areaData[currentArea].scenarios?.[key]||[];
-    if(!scenRows.length)return;
-    rows.push([`Escenario: ${st.label}`,'','','','','']);
-    rows.push(['Actividad',...names.map(n=>`${n} (pts/persona)`),'Total estimado (dotación actual)','','']);
-    scenRows.forEach(r=>{
-      const est=r.pts[0]*top+r.pts[1]*mid+r.pts[2]*dev;
-      rows.push([r.label,...r.pts,est,'','']);
-    });
-    rows.push(['','','','','','']);
-  });
-
+  [1,3,6,12].forEach(m=>{rows.push([`${m} ${m===1?'mes':'meses'}`,grandTotal*m,Math.round(grandTotal*m*(1-mobDown/100)),Math.round(grandTotal*m*(1+mobUp/100)),'','']);});
   const csv=rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
   const a=document.createElement('a');
   a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);
-  a.download=`incentivos_${cfg.org?cfg.org.replace(/\s/g,'_')+'_':''}${currentArea}_${today.replace(/\//g,'-')}.csv`;a.click();
+  a.download=`incentivos_${cfg.org?cfg.org.replace(/\s/g,'_')+'_':''}${currentArea}_${today.replace(/\//g,'-')}.csv`;
+  a.click();
   showToast('✓ CSV exportado correctamente');
 }
 
-// INIT
 function renderAll(){
   initAreaTabs('areaTabs',()=>{renderMetas();calc();});
   renderModeInputs();renderMetas();calc();
-  if(typeof updateCfgPreview==="function")updateCfgPreview();
+  if(typeof updateCfgPreview==='function')updateCfgPreview();
 }
-// sTot listener moved to oninput on the input element
 
-
-renderAll();
-
-// ── QUICK DOT ──────────────────────────────────────────────────────────────
 function quickDot(n){
   const el=document.getElementById('sTot');
   if(el){el.value=n;document.getElementById('sTotV').textContent=n;calc();saveSession();}
 }
 
-// ── VARIABILITY ────────────────────────────────────────────────────────────
 function setVar(level){
   currentVar=level;
   document.querySelectorAll('.var-btn').forEach(b=>b.classList.remove('active'));
@@ -1283,11 +1180,9 @@ function setVar(level){
   const v=VAR_MAP[level];
   document.getElementById('sUp').value=v.up;
   document.getElementById('sDown').value=v.down;
-  calc();
-  saveSession();
+  calc();saveSession();
 }
 
-// ── META TIPO TOGGLE ────────────────────────────────────────────────────────
 function toggleMetaTipo(metaId,isIgual){
   const meta=areaData[currentArea].metas.find(m=>m.id===metaId);
   if(!meta)return;
@@ -1298,97 +1193,60 @@ function toggleMetaTipo(metaId,isIgual){
   calc();saveSession();
 }
 
-// ── SESSION SAVE ────────────────────────────────────────────────────────────
 function saveSession(){
   clearTimeout(_saveTimer);
   _saveTimer=setTimeout(()=>{
     try{
-      const segSuffix=IS_CLIENT?'C':'';
-      const session={
-        v:3,ts:Date.now(),
-        area:currentArea,mode:currentMode,varLevel:currentVar,
-        selectedStage:selectedStage,loadedStage:loadedStage,
+      const session={v:3,ts:Date.now(),area:currentArea,mode:currentMode,varLevel:currentVar,selectedStage:selectedStage,loadedStage:loadedStage,
         dotacion:parseInt(document.getElementById('sTot')?.value)||200,
         metas:JSON.parse(JSON.stringify(areaData)),
-        segNames:[
-          document.getElementById('seg0name'+segSuffix)?.value||'Top',
-          document.getElementById('seg1name'+segSuffix)?.value||'Medio',
-          document.getElementById('seg2name'+segSuffix)?.value||'En desarrollo',
-        ],
-        cfgOrg:  document.getElementById('cfgOrg'+segSuffix)?.value||'',
-        cfgName: document.getElementById('cfgName'+segSuffix)?.value||'',
-        cfgMoneda:document.getElementById('cfgMoneda'+segSuffix)?.value||'CLP',
+        segNames:[document.getElementById('seg0nameC')?.value||'Top',document.getElementById('seg1nameC')?.value||'Medio',document.getElementById('seg2nameC')?.value||'En desarrollo'],
+        cfgOrg:document.getElementById('cfgOrgC')?.value||'',
+        cfgName:document.getElementById('cfgNameC')?.value||'',
+        cfgMoneda:document.getElementById('cfgMonedaC')?.value||'CLP',
       };
-      localStorage.setItem('apprecio_session_'+(IS_CLIENT?'cli':'int'),JSON.stringify(session));
+      localStorage.setItem('apprecio_session_cli',JSON.stringify(session));
       const badge=document.getElementById('saveBadge');
-      if(badge){
-        const now=new Date();
-        badge.textContent='💾 Guardado '+now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0');
-        badge.style.opacity='1';
-        setTimeout(()=>{if(badge)badge.style.opacity='.5';},3000);
-      }
+      if(badge){const now=new Date();badge.textContent='💾 Guardado '+now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0');badge.style.opacity='1';setTimeout(()=>{if(badge)badge.style.opacity='.5';},3000);}
     }catch(e){console.warn('saveSession error',e);}
   },800);
 }
 
 function loadAndRestoreSession(){
   try{
-    const raw=localStorage.getItem('apprecio_session_'+(IS_CLIENT?'cli':'int'));
+    const raw=localStorage.getItem('apprecio_session_cli');
     if(!raw)return;
     const s=JSON.parse(raw);
     if(!s||s.v!==3)return;
     if(Date.now()-s.ts>7*24*60*60*1000)return;
-    // Show restore banner
     const banner=document.getElementById('restoreBanner');
     const tsEl=document.getElementById('restoreTs');
     if(banner&&tsEl){
       const d=new Date(s.ts);
       tsEl.textContent=d.toLocaleDateString('es-CL')+' a las '+d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0');
       banner.style.display='flex';
-      // Auto-restore data
-      const segSuffix=IS_CLIENT?'C':'';
       if(s.dotacion){const t=document.getElementById('sTot');if(t){t.value=s.dotacion;document.getElementById('sTotV').textContent=s.dotacion;}}
       if(s.mode){currentMode=s.mode;setMode(s.mode);}
       if(s.varLevel)setVar(s.varLevel);
       if(s.area){currentArea=s.area;}
       if(s.metas)Object.keys(s.metas).forEach(k=>{if(areaData[k])areaData[k]=s.metas[k];});
-      if(s.segNames){
-        ['seg0name','seg1name','seg2name'].forEach((id,i)=>{
-          const el=document.getElementById(id+segSuffix);
-          if(el&&s.segNames[i])el.value=s.segNames[i];
-        });
-      }
-      if(s.cfgOrg){const el=document.getElementById('cfgOrg'+segSuffix);if(el)el.value=s.cfgOrg;}
-      if(s.cfgName){const el=document.getElementById('cfgName'+segSuffix);if(el)el.value=s.cfgName;}
-      if(s.cfgMoneda){const el=document.getElementById('cfgMoneda'+segSuffix);if(el)el.value=s.cfgMoneda;}
-      // Restore stage selection
-      if(s.selectedStage){
-        setTimeout(function(){
-          selectStage(s.selectedStage);
-          if(s.loadedStage&&s.loadedStage===s.selectedStage){
-            loadedStage=s.loadedStage;
-            var applyBtn=document.getElementById('stageApplyBtn');
-            if(applyBtn){applyBtn.disabled=true;applyBtn.textContent='Ya cargado';}
-            var stageLabels={onboarding:'Onboarding',growth:'Crecimiento',alto:'Alto rendimiento'};
-            var badge=document.getElementById('stageLoadedBadge');
-            if(badge){badge.style.display='inline-flex';badge.textContent=(stageLabels[s.loadedStage]||s.loadedStage)+' cargado';}
-            var resetBtn=document.getElementById('stageResetBtn');
-            if(resetBtn)resetBtn.style.display='block';
-            var ar=document.getElementById('stageActionRow');
-            if(ar)ar.classList.add('visible');
-          }
-        },200);
-      }
+      if(s.segNames){['seg0nameC','seg1nameC','seg2nameC'].forEach((id,i)=>{const el=document.getElementById(id);if(el&&s.segNames[i])el.value=s.segNames[i];});}
+      if(s.cfgOrg){const el=document.getElementById('cfgOrgC');if(el)el.value=s.cfgOrg;}
+      if(s.cfgName){const el=document.getElementById('cfgNameC');if(el)el.value=s.cfgName;}
+      if(s.cfgMoneda){const el=document.getElementById('cfgMonedaC');if(el)el.value=s.cfgMoneda;}
+      if(s.selectedStage){setTimeout(function(){selectStage(s.selectedStage);if(s.loadedStage&&s.loadedStage===s.selectedStage){loadedStage=s.loadedStage;var applyBtn=document.getElementById('stageApplyBtn');if(applyBtn){applyBtn.disabled=true;applyBtn.textContent='Ya cargado';}var badge=document.getElementById('stageLoadedBadge');if(badge){badge.style.display='inline-flex';badge.textContent=(STAGE_NAMES_SHORT[s.loadedStage]||s.loadedStage)+' cargado';}var resetBtn=document.getElementById('stageResetBtn');if(resetBtn)resetBtn.style.display='block';var ar=document.getElementById('stageActionRow');if(ar)ar.classList.add('visible');}},200);}
     }
   }catch(e){console.warn('loadSession error',e);}
 }
 
 function discardSession(){
-  localStorage.removeItem('apprecio_session_'+(IS_CLIENT?'cli':'int'));
+  localStorage.removeItem('apprecio_session_cli');
   document.getElementById('restoreBanner')?.remove();
   location.reload();
 }
 
+loadAndRestoreSession();
+renderAll();
 </script>
 </body>
 </html>
